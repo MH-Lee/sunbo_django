@@ -1,0 +1,1 @@
+C:\Users\LeeMH\pyvenv\django\Scripts\activate

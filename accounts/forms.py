@@ -1,5 +1,5 @@
 from django import forms
-from .models import OnsideUser
+from .models import OnspaceUser
 from django.contrib.auth.hashers import check_password
 
 class LoginForm(forms.Form):

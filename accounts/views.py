@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password, check_password
-from .models import OnsideUser
+from .models import OnspaceUser
 from .forms import LoginForm
 
 # Create your views here.

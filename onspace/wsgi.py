@@ -1,5 +1,5 @@
 """
-WSGI config for onside project.
+WSGI config for onspace project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'onside.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'onspace.settings')
 
 application = get_wsgi_application()
