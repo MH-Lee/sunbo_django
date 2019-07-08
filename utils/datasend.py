@@ -12,10 +12,10 @@ sys.path.append(proj_path)
 os.chdir(proj_path)
 import django
 print("사용자 모델 불러오기")
-from django.contrib.auth.models import User
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 
+from django.contrib.auth.models import User
 from information.models import Dart, Rescue
 from news.models import (InvestNews,
                         LPCompany,
@@ -95,7 +95,7 @@ def invest_news_send():
     print('invest_news 업로드')
 
 def LP_company_send():
-    data = pd.read_excel('./data/LP_company.xlsx')
+    data = pd.read_excel('./data/LPcompany.xlsx')
     data.sort_values(by=['날짜'], inplace=True)
     data['뉴스URL'] = data['뉴스제목'].apply(lambda x:get_url(x))
     data['뉴스제목'] = data['뉴스제목'].apply(lambda x:remove_tag(x))
@@ -156,7 +156,10 @@ def protfolio_send():
 
 def nan_remove(data):
     ret = str(data)
+    str1 = 'https://help.naver.com/support/'
     if ret =='nan':
+        ret = None
+    elif str1 in ret:
         ret = None
     else:
         ret = ret
@@ -211,3 +214,13 @@ def resuce_send():
         rescue_list.append(rescue_obj)
     Rescue.objects.bulk_create(rescue_list)
     print('회생법인 업로드')
+
+
+if __name__ == "__main__":
+    dart_send()
+    invest_news_send()
+    LP_company_send()
+    main_company_send()
+    protfolio_send()
+    prof_send()
+    resuce_send()
