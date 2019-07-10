@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Django Restframework (API Template)
     'rest_framework',
+]
+
+INSTALLED_APPS += [
     # Sunbo app
     'accounts',
     'information',
@@ -146,3 +149,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static-dist/')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/'),
 ]
+
+
+AUTH_USER_MODEL = 'accounts.User'

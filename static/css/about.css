@@ -1,0 +1,54 @@
+  p {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    }
+  
+  .navbar {
+    border-bottom: 1px #ffffff;
+  }
+
+  .subtitle {
+    margin-left: 13rem;
+    margin-right: 13rem;
+    margin-top: 7rem;
+    border-bottom: 1px solid #e3e3e3;
+  }
+  .company-name img{
+    margin-top: 3rem;
+    margin-left: 13rem;
+    width: 35rem;
+    height: 13rem;
+  }
+  .no-gutters {
+    margin-top: 3rem;
+    margin-right: 25rem;
+    margin-left: 25rem;
+   }
+
+  .showcase .showcase-text {
+    padding: 3rem;
+   }
+  .map {
+    margin-top: 5rem;
+  }
+  .map .col-md-6 img {
+    margin-top: 3rem;
+  }
+  .showcase .showcase-img {
+    min-height: 30rem;
+    background-size: cover;
+  }
+  
+  @media (min-width: 560px) {
+    .no-gutters {
+        margin-right: 7rem;
+        margin-left: 7rem;
+       }
+    .showcase .showcase-text {
+      padding: 7rem;
+    }
+  }
+  
+
+
+  

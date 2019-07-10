@@ -11,11 +11,11 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "onspace.settings")
 sys.path.append(proj_path)
 os.chdir(proj_path)
 import django
-print("사용자 모델 불러오기")
+
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 
-from django.contrib.auth.models import User
+from accounts.models import User
 from information.models import Dart, Rescue
 from news.models import (InvestNews,
                         LPCompany,

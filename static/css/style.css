@@ -1,0 +1,75 @@
+body {
+    font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+  }
+  .bg-light {
+    background-color: #ffffff!important;
+    }
+  .container {
+      max-width: 1400px;
+  }
+  .navbar {
+    border-bottom: 1px solid #e3e3e3;
+  }
+  
+  .navbar-brand {
+   font-size: 18pt;
+   font-weight: bold;
+   margin-right: 4rem;
+   
+  }
+  .nav-tabs {
+    font-size: 16pt;
+    border-bottom: 1px #ffffff;
+  }
+
+  .btn {
+    padding: .5rem 1rem;
+    font-size: 16pt;
+    background-color: #005be2;
+    border-color: ;
+  }
+  .btn-signup {
+    color: #005be2;
+    background-color: #fff;
+    border-color: #005be2;
+}
+  .features-icons {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+  
+  .features-icons .row {
+    margin-right: -105px;
+    margin-left: -105px;
+  }
+  
+  .features-icons .features-icons-item {
+    max-width: 30rem;
+  }
+  
+  .features-icons .features-icons-item .features-icons-icon {
+    height: 7rem;
+  }
+  
+  .features-icons .features-icons-item .features-icons-icon i {
+    font-size: 4.5rem;
+  }
+  
+  .features-icons .features-icons-item:hover .features-icons-icon i {
+    font-size: 5rem;
+  }
+
+  footer.footer {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }

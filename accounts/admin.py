@@ -1,8 +1,7 @@
 from django.contrib import admin
-from .models import OnspaceUser
+from .models import User
 # Register your models here.
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('email', 'password')
 
-class OnspaceAdmin(admin.ModelAdmin):
-    list_display = ('username', 'password')
-
-admin.site.register(OnspaceUser, OnspaceAdmin)
+admin.site.register(User, UserAdmin)
