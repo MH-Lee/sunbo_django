@@ -1,5 +1,12 @@
 {% extends "information/_base.html" %}
 {% block title %}Dart 기업 공시 열람{% endblock %}
+{% block search %}
+<form class="form-inline my-2 my-lg-0 justify-content-end"  method="GET" action="{% url 'dart_list' %}">
+  {% csrf_token %}
+  <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-primary" type="submit">search</button>
+</form>
+{% endblock %}
 {% block table %}
 <div class="row mt-5">
   <div class="col-12">
