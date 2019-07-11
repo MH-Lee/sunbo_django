@@ -25,29 +25,37 @@
 
   .subtitle {
     margin-left: 3rem;
-    margin-top: 7rem;
+    margin-top: 3rem;
     border-bottom: 1px solid #e3e3e3;
   }
 
-  .flex-container{
+  .flex-container-1 header.masthead{
+    /* background-color: aqua; */
+    position: relative;
+    background-color: #343a40;
+    background: url("../img/information_img.jpg") no-repeat center center;
+    background-size: auto;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+    z-index: 1;
+  }
+
+  .flex-container-2{
     display: flex;
     flex-direction: row;
   }
 
-  .flex-container .flex-nav {
+  .flex-container-2 .flex-nav {
     padding: 20px;
     width: 20%;
   }
   
-  .flex-container .flex-table {
-    width: 75%;
+  .flex-container-2 .flex-table {
+    width: 73%;
   }
 
-  .flex-container .flex-slack {
-    width: 5%;
-  }
   .flex-nav .side-menu-name {
-    margin-top: 6rem;
+    margin-top: 2rem;
     margin-left: 3rem;
     text-align: center;
   }

@@ -6,8 +6,20 @@
 
 
 {% block content %}
+<div class="flex-container-1">
+    <header class="masthead text-white text-center">
+        <div class="overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 mx-auto">
+                        <h1 class="mb-5">기업정보를 손쉽게 확인하세요</h1>
+                    </div>
+                </div>
+            </div>
+    </header>
+</div>
 
-<div class='flex-container'>
+<div class='flex-container-2'>
 
     <div class="flex-nav">
         <div class="side-menu-name">
@@ -19,7 +31,7 @@
                     <a class="nav-link" href="/information/rescue_list/">회생기업 리스트</a>
                 </li>
                 <li class="nav-item">
-                        <a class="nav-link" href="#">Dart 기업정보</a>
+                        <a class="nav-link" href="/information/dart_list/">Dart 기업정보</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">기업재무 정보</a>
@@ -34,9 +46,5 @@
         {% block table %}
         {% endblock %}
     </div>
-    <div class="flex-slack">
-
-    </div>
-    
 </div>
 {% endblock %}

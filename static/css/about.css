@@ -6,7 +6,27 @@
   .navbar {
     border-bottom: 1px #ffffff;
   }
-  
+  .company-name img{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    /* margin-left: 13rem; */
+    width: 50%;
+    /* height: 30%; */
+  }
+  .map {
+    margin-top: 5rem;
+  }
+  .map .col-md-6 img {
+    margin-top: 3rem;
+    width: 80%;
+  }
+  .no-gutters {
+    margin-top: 3rem;
+    margin-right: 2rem;
+    margin-left: 2rem;
+    font-size: 30rem;
+   }
+
   @media (min-width: 768px) {
     .subtitle {
       margin-left: 13rem;
@@ -35,6 +55,7 @@
     }
     .map .col-md-6 img {
       margin-top: 3rem;
+      width: 100%;
     }
     .showcase .showcase-img {
       min-height: 30rem;
@@ -51,5 +72,5 @@
     }
   }
   .col-lg-4 .features-icons-item {
-    width: 65%;
+    width: 80%;
   }

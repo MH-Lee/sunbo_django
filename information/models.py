@@ -4,7 +4,7 @@ from django.conf import settings
 class Dart(models.Model):
     company_name = models.CharField(max_length=20,
                                 verbose_name="공시대상 회사")
-    ticker = models.CharField(max_length=10, verbose_name="내용")
+    ticker = models.CharField(max_length=10, verbose_name="회사코드")
     date = models.CharField(max_length=10, verbose_name="공시접수일자")
     another_name = models.CharField(max_length=50, verbose_name="타법인명")
     contents = models.CharField(max_length=50, verbose_name="문서내용")

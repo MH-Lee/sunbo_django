@@ -1,0 +1,79 @@
+{% extends "information/_base.html" %}
+{% block title %}Dart 기업 공시 열람{% endblock %}
+{% block table %}
+<div class="row mt-5">
+  <div class="col-12">
+    <table class="table table-light">
+      <thead class="thead-light">
+        <tr>
+          <th>회사명</th>
+          <th>회사코드</th>
+          <th>공고일자</th>
+          <th>타법인명</th>
+          <th>문서내용</th>
+          <th>관련뉴스</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+        {% for dart in dart_infos %}
+        <tr>
+          <td class="center">{{ dart.company_name }}</td>
+          <td class="center">{{ dart.ticker }}</td>
+          <td class="center">{{ dart.date }}</td>
+          <td class="center">{{ dart.another_name }}</td>
+          <td><a href="{{ dart.contents }}">{{ dart.contents }}</a></td>          
+          {% if dart.news_url == 'None' %}
+          <td>{{ dart.news_title }}</td>
+          {% elif 'https://help.naver.com/support/' in dart.news_url %}
+          <td>{{ dart.news_title }}</td>
+          {% else %}
+          <td><a href="{{ dart.news_url }}">{{ dart.news_title }}</a></td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row mt-2">
+  <div class="col-12">
+    <nav>
+      <ul class="pagination justify-content-center">
+        {% if dart_infos.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?p=1">처음으로</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="?p={{ dart_infos.previous_page_number }}">이전으로</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link " href="#">처음으로</a>
+        </li>
+        <li class="page-item disabled">
+          <a class="page-link" href="#">이전으로</a>
+        </li>
+        {% endif %}
+        <li class="page-item active">
+          <a class="page-link" href="#">{{ dart_infos.number }} / {{ dart_infos.paginator.num_pages }}</a>
+        </li>
+        {% if dart_infos.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?p={{ dart_infos.next_page_number }}">다음으로</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?p={{ dart_infos.paginator.num_pages }}">마지막으로</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link disabled" href="#">다음으로</a>
+        </li>
+        <li class="page-item disabled">
+            <a class="page-link" href="#">마지막으로</a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+</div>
+{% endblock %}

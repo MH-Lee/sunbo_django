@@ -54,12 +54,11 @@ a {
   }
   
   .features-icons .row {
-    margin-right: -105px;
-    margin-left: -105px;
+    margin-right: 90px;
+    margin-left: 90px;
   }
-  
   .features-icons .features-icons-item {
-    max-width: 30rem;
+    max-width: 25rem;
   }
   
   .features-icons .features-icons-item .features-icons-icon {
