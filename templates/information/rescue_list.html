@@ -1,0 +1,79 @@
+{% extends "information/_base.html" %}
+{% block title %}회생법원 신청리스트{% endblock %}
+{% block table %}
+<div class="row mt-5">
+  <div class="col-12">
+    <table class="table table-light">
+      <thead class="thead-light">
+        <tr>
+          <th>법원</th>
+          <th>사건번호</th>
+          <th>공고일자</th>
+          <th>제목</th>
+          <th>카테고리</th>
+          <th>관련뉴스기사</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+        {% for rescue in rescues %}
+        <tr>
+          <td class="center">{{ rescue.area }}</td>
+          <td class="center">{{ rescue.case_num }}</td>
+          <td class="center">{{ rescue.date }}</td>
+          <td><a href="/information/rescue_detail/{{ rescue.id }}">{{ rescue.subject }}</a></td>
+          <td>{{ rescue.category }}</td>
+          {% if rescue.news_url == 'None' %}
+          <td>{{ rescue.news_title }}</td>
+          {% elif 'https://help.naver.com/support/' in rescue.news_url %}
+          <td>{{ rescue.news_title }}</td>
+          {% else %}
+          <td><a href="{{ rescue.news_url }}">{{ rescue.news_title }}</a></td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row mt-2">
+  <div class="col-12">
+    <nav>
+      <ul class="pagination justify-content-center">
+        {% if rescues.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?p=1">처음으로</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="?p={{ rescues.previous_page_number }}">이전으로</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link " href="#">처음으로</a>
+        </li>
+        <li class="page-item disabled">
+          <a class="page-link" href="#">이전으로</a>
+        </li>
+        {% endif %}
+        <li class="page-item active">
+          <a class="page-link" href="#">{{ rescues.number }} / {{ rescues.paginator.num_pages }}</a>
+        </li>
+        {% if rescues.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?p={{ rescues.next_page_number }}">다음으로</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?p={{ rescues.paginator.num_pages }}">마지막으로</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link disabled" href="#">다음으로</a>
+        </li>
+        <li class="page-item disabled">
+            <a class="page-link" href="#">마지막으로</a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+</div>
+{% endblock %}

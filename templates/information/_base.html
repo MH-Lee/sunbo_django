@@ -1,0 +1,42 @@
+{% extends "../index.html" %}
+{% load static from staticfiles %}    
+{% block css %}
+<link href="{% static 'css/tables.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+
+<div class='flex-container'>
+
+    <div class="flex-nav">
+        <div class="side-menu-name">
+            <h4>Information</h4>
+        </div>
+        <div class="menu-nav">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="/information/rescue_list/">회생기업 리스트</a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="#">Dart 기업정보</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">기업재무 정보</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="flex-table">
+        <div class="subtitle">
+            <h1>{% block title %}{% endblock %}</h1>
+        </div>
+        {% block table %}
+        {% endblock %}
+    </div>
+    <div class="flex-slack">
+
+    </div>
+    
+</div>
+{% endblock %}

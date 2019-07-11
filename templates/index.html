@@ -36,12 +36,12 @@
         &nbsp; investment information system</a>
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link" href="/about">회사소개</a>
+          <a class="nav-link" href="/about/">회사소개</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">기업정보</a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">회생법인 신청리스트</a>
+            <a class="dropdown-item" href="/information/rescue_list/">회생법인 신청리스트</a>
             <a class="dropdown-item" href="#">DART</a>
           </div>
         </li>
@@ -60,8 +60,12 @@
         </li>
       </ul>
       <div>
-        <a class="btn btn-primary" href="#">로그인</a>
-        <a class="btn btn-signup" href="#">회원가입</a>
+        {% if request.user.is_authenticated %}
+        <a class="btn btn-primary" href="/accounts/logout">로그아웃</a>
+        {% else %}
+        <a class="btn btn-primary" href="/accounts/login">로그인</a>
+        <a class="btn btn-signup" href="/accounts/register">회원가입</a>
+        {% endif %}
       </div>
     </div>
   </nav>

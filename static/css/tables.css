@@ -1,0 +1,80 @@
+  p {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    }
+  
+  table {
+    margin-left: 30px;
+  }
+  th {
+    text-align: center;
+  }
+  td {
+    width:500px;
+    table-layout:fixed;
+      word-wrap:break-word;
+  }
+    .center {
+      text-align: center;
+      width:250px;
+      table-layout:fixed;
+    }
+  .navbar {
+    border-bottom: 1px #ffffff;
+  }
+
+  .subtitle {
+    margin-left: 3rem;
+    margin-top: 7rem;
+    border-bottom: 1px solid #e3e3e3;
+  }
+
+  .flex-container{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .flex-container .flex-nav {
+    padding: 20px;
+    width: 20%;
+  }
+  
+  .flex-container .flex-table {
+    width: 75%;
+  }
+
+  .flex-container .flex-slack {
+    width: 5%;
+  }
+  .flex-nav .side-menu-name {
+    margin-top: 6rem;
+    margin-left: 3rem;
+    text-align: center;
+  }
+
+  .flex-nav .menu-nav {
+    margin-top: 2rem;
+    margin-left: 3rem;
+
+  }
+  .menu-nav .nav {
+    text-align: center;
+    color : #005be2;
+  }
+  .nav a {
+    color: inherit;
+    text-decoration: none; /* no underline */
+  }
+  
+  .nav .nav-item:first-child {
+    border-radius: 15px 15px 0 0;
+  }
+  .nav .nav-item:last-child {
+    border-radius: 0px 0px 15px 15px;
+  }
+  .nav .nav-item:hover {
+    color: #fff;
+    background-color: #005be2;
+  }
+
+  

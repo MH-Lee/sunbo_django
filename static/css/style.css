@@ -11,6 +11,11 @@ body {
     font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 700;
   }
+
+a {
+  text-decoration: none; /* no underline */
+}
+
   .bg-light {
     background-color: #ffffff!important;
     }
@@ -22,21 +27,21 @@ body {
   }
   
   .navbar-brand {
-   font-size: 18pt;
+   font-size: 16pt;
    font-weight: bold;
    margin-right: 4rem;
    
   }
   .nav-tabs {
-    font-size: 16pt;
+    font-size: 13pt;
     border-bottom: 1px #ffffff;
   }
 
   .btn {
     padding: .5rem 1rem;
-    font-size: 16pt;
+    font-size: 13pt;
     background-color: #005be2;
-    border-color: ;
+    border-color: #005be2;
   }
   .btn-signup {
     color: #005be2;
