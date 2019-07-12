@@ -31,7 +31,7 @@ elif sys.argv[1] == 'datasend':
     resuce_send()
     print('information complete')
     invest_news_send()
-    protfolio_send()
+    portfolio_send()
     LP_company_send()
     prof_send()
     main_company_send()

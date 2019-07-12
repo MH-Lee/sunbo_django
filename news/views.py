@@ -116,7 +116,7 @@ def professor_list(request):
         try:
             _professor_obj = Professor.objects.filter(
                Q(media__icontains=query) | Q(news_title__icontains=query) |\
-                Q(small_class_2__icontains=query) | Q(small_class_2__icontains=query)
+                Q(small_class_1__icontains=query) | Q(small_class_2__icontains=query)
             ).order_by('-id')
         except:
             _professor_obj = Professor.objects.all().order_by('-id')    

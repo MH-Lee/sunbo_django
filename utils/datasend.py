@@ -135,7 +135,7 @@ def main_company_send():
     MainCompany.objects.bulk_create(main_list)
     print('Main기업 업로드')
 
-def protfolio_send():
+def portfolio_send():
     data = pd.read_excel('./data/Portfolio.xlsx')
     data.sort_values(by=['날짜'], inplace=True)
     data['뉴스URL'] = data['뉴스제목'].apply(lambda x:get_url(x))
@@ -177,7 +177,7 @@ def prof_send():
     for i in range(data.shape[0]):
         media = data.iloc[i,0]
         news_title = data.iloc[i,1]
-        date = data.iloc[i,2]
+        date = data.iloc[i,2].strftime('%Y-%m-%d')
         small_class_1 = data.iloc[i,3]
         small_class_2 = data.iloc[i,4]
         news_url = data.iloc[i,5]
@@ -222,6 +222,6 @@ if __name__ == "__main__":
     invest_news_send()
     LP_company_send()
     main_company_send()
-    protfolio_send()
+    portfolio_send()
     prof_send()
     resuce_send()

@@ -82,7 +82,7 @@ class Professor(models.Model):
                                             verbose_name='등록시간')
 
     def __str__(self):
-        return self.title
+        return self.news_title
 
     class Meta:
         db_table = 'professor'
