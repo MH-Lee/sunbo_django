@@ -105,7 +105,7 @@ def LP_company_send():
         company_name  = data.iloc[i,1]
         news_title = data.iloc[i,2]
         media = data.iloc[i,3]
-        date =  data.iloc[i,4].strftime('%Y-%m-%d'),
+        date =  data.iloc[i,4].strftime('%Y-%m-%d')
         print(date)
         news_url = data.iloc[i,5]
         writer = User.objects.get(username='admin')

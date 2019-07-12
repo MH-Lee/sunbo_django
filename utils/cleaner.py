@@ -8,6 +8,7 @@ from onspace.settings import INSTALLED_APPS
 class Cleaner(object):
     def __init__(self, start_path):
         self.start_path = start_path
+        print(self.start_path)
         self.apps = [app for app in INSTALLED_APPS if 'django' not in app and 'rest_framework' not in app]
 
     def clean_migrations(self):
