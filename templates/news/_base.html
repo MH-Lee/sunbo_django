@@ -2,7 +2,7 @@
 {% load static from staticfiles %}    
 {% block css %}
 <link href="{% static 'css/tables.css' %}" rel="stylesheet">
-<link href="{% static 'css/tables_info.css' %}" rel="stylesheet">
+<link href="{% static 'css/tables_news.css' %}" rel="stylesheet">
 {% endblock %}
 
 
@@ -13,7 +13,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xl-9 mx-auto">
-                        <h1 class="mb-5">기업정보를 손쉽게 확인하세요</h1>
+                        <h1 class="mb-5">스타트업 뉴스 정보</h1>
                     </div>
                 </div>
             </div>
@@ -24,18 +24,24 @@
 
     <div class="flex-nav">
         <div class="side-menu-name">
-            <h4>Information</h4>
+            <h4>NEWS</h4>
         </div>
         <div class="menu-nav">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="/information/rescue_list/">회생기업 리스트</a>
+                    <a class="nav-link" href="/information/rescue_list/">LP기업</a>
                 </li>
                 <li class="nav-item">
-                        <a class="nav-link" href="/information/dart_list/">Dart 기업정보</a>
+                    <a class="nav-link" href="/information/dart_list/">포트폴리오</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">기업재무 정보</a>
+                    <a class="nav-link" href="#">투자유치</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">교수개발</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">관계사</a>
                 </li>
             </ul>
         </div>

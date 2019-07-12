@@ -3,7 +3,6 @@ from django.http import Http404, HttpResponse
 from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import Rescue, Dart
-# from .forms import InfoSearchForm
 
 # Create your views here.
 def rescue_detail(request, pk):

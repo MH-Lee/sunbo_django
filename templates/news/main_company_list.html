@@ -1,0 +1,9 @@
+{% extends "news/_base.html" %}
+{% block title %}관계사뉴스{% endblock %}
+{% block search %}
+<form class="form-inline my-2 my-lg-0 justify-content-end"  method="GET" action="{% url 'main_company' %}">
+  {% csrf_token %}
+  <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-primary" type="submit">search</button>
+</form>
+{% endblock %}

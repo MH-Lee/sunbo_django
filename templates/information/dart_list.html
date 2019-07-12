@@ -28,7 +28,7 @@
           <td class="center">{{ dart.ticker }}</td>
           <td class="center">{{ dart.date }}</td>
           <td class="center">{{ dart.another_name }}</td>
-          <td><a href="{{ dart.contents }}">{{ dart.contents }}</a></td>          
+          <td class="center"><a href="{{ dart.contents }}">문서내용</a></td>          
           {% if dart.news_url == 'None' %}
           <td>{{ dart.news_title }}</td>
           {% elif 'https://help.naver.com/support/' in dart.news_url %}
