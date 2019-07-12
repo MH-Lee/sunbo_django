@@ -106,6 +106,7 @@ def LP_company_send():
         news_title = data.iloc[i,2]
         media = data.iloc[i,3]
         date =  data.iloc[i,4].strftime('%Y-%m-%d'),
+        print(date)
         news_url = data.iloc[i,5]
         writer = User.objects.get(username='admin')
         lpc_obj = LPCompany(category=category, company_name=company_name, media=media, date=date,\

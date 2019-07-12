@@ -7,3 +7,78 @@
   <button class="btn btn-primary" type="submit">search</button>
 </form>
 {% endblock %}
+{% block table %}
+<div class="row mt-5">
+  <div class="col-12">
+    <table class="table table-light">
+      <thead class="thead-light">
+        <tr>
+          <th>회사명</th>
+          <th>신문사</th>
+          <th>뉴스제목</th>
+          <th>날짜</th>
+          <th>카테고리</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+        {% for port in portfolio_info %}
+        <tr>
+          <td class="center">{{ port.company_name }}</td>
+          <td class="center">{{ port.media }}</td>
+          {% if port.news_url == 'None' %}
+          <td>{{ port.news_title }}</td>
+          {% elif 'https://help.naver.com/support/' in port.news_url %}
+          <td>{{ port.news_title }}</td>
+          {% else %}
+          <td><a href="{{ port.news_url }}">{{ port.news_title }}</a></td>
+          {% endif %}
+          <td class="center">{{ port.date }}</td>
+          <td class="center">{{ port.category }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row mt-2">
+  <div class="col-12">
+    <nav>
+      <ul class="pagination justify-content-center">
+        {% if portfolio_info.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?p=1">처음으로</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="?p={{ portfolio_info.previous_page_number }}">이전으로</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link " href="#">처음으로</a>
+        </li>
+        <li class="page-item disabled">
+          <a class="page-link" href="#">이전으로</a>
+        </li>
+        {% endif %}
+        <li class="page-item active">
+          <a class="page-link" href="#">{{ portfolio_info.number }} / {{ portfolio_info.paginator.num_pages }}</a>
+        </li>
+        {% if portfolio_info.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?p={{ portfolio_info.next_page_number }}">다음으로</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?p={{ portfolio_info.paginator.num_pages }}">마지막으로</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link disabled" href="#">다음으로</a>
+        </li>
+        <li class="page-item disabled">
+            <a class="page-link" href="#">마지막으로</a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+</div>
+{% endblock %}

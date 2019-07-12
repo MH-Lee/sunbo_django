@@ -80,9 +80,9 @@ def portfolio_list(request):
     except:
         paginator = Paginator(_port_obj, 15)
         portfolio_info = NULL
-    return render(request, 'news/portfolio.html', {'portfolio_info':portfolio_info})
+    return render(request, 'news/portfolio_list.html', {'portfolio_info':portfolio_info})
 
-# portfolio_view
+# investment_news_view
 def investment_news_list(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')

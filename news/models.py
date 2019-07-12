@@ -44,7 +44,7 @@ class LPCompany(models.Model):
         verbose_name = 'LP기업'
         verbose_name_plural = 'LP기업'
 
-#LP기업
+# 관계사
 class MainCompany(models.Model):
     category = models.CharField(max_length=20, verbose_name="카테고리")
     date = models.CharField(max_length=10, verbose_name="날짜")

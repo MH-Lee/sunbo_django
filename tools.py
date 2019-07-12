@@ -11,6 +11,7 @@ from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 
 ### scripts ###
+from utils.datasend import *
 from utils.cleaner import Cleaner
 
 if sys.argv[1] == 'cleanmigrations':
@@ -20,3 +21,15 @@ if sys.argv[1] == 'cleanmigrations':
     if os.path.exists(db):
         os.remove(db)
         print('Removed database')
+
+elif sys.argv[1] == 'datasend':
+    dart_send()
+    resuce_send()
+    print('information complete')
+    invest_news_send()
+    protfolio_send()
+    LP_company_send()
+    prof_send()
+    main_company_send()
+    print('news complete')
+    print('datasend to database')
