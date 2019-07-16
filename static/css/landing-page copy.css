@@ -9,8 +9,8 @@ header.masthead {
   background-color: #343a40;
   background: url("../img/office.jpg") no-repeat center center;
   background-size: cover;
-  padding-top: 12rem;
-  padding-bottom: 12rem;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
   z-index: 1;
 }
 
@@ -25,21 +25,21 @@ header.masthead .overlay {
 }
 
 header.masthead h1 {
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   header.masthead {
-    padding-top: 8rem;
-    padding-bottom: 8rem;
+    padding-top: 12rem;
+    padding-bottom: 12rem;
   }
   header.masthead h1 {
-    font-size: 2rem;
+    font-size: 3rem;
   }
 }
 
 .showcase .showcase-text {
-  padding: 7rem;
+  padding: 3rem;
 }
 
 .showcase .showcase-img {
@@ -47,11 +47,12 @@ header.masthead h1 {
   background-size: cover;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   .showcase .showcase-text {
-    padding: 3rem;
+    padding: 7rem;
   }
 }
+
 
 .testimonials {
   padding-top: 7rem;

@@ -8,7 +8,15 @@
   }
   th {
     text-align: center;
+    width:500px;
+    table-layout:fixed;
+      word-wrap:break-word;
   }
+    .center {
+      text-align: center;
+      width:250px;
+      table-layout:fixed;
+    }
   td {
     width:500px;
     table-layout:fixed;
@@ -96,4 +104,20 @@
   .btn .btn-outline-success {
     color: #fff;
     background-color: #005be2;
+  }
+
+  @media (max-width: 768px) {
+    .flex-container-2{
+      display: flex;
+      flex-direction: column;
+    }
+    .flex-container-2 .flex-nav {
+      padding: 5px;
+      width: 100%;
+    }
+    
+    .flex-container-2 .flex-table {
+      padding: 4px;
+      width: 100%;
+    }
   }

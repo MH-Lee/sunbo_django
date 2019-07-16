@@ -9,13 +9,14 @@
 {% endblock %}
 {% block table %}
 <div class="row mt-5">
-  <div class="col-12">
-    <table class="table table-light">
+  <div class="table-responsive">
+    <table class="table">
       <thead class="thead-light">
         <tr>
-          <th>법원</th>
-          <th>사건번호</th>
-          <th>공고일자</th>
+          <th class="center">법원</th>
+          <th class="center">사건번호</th>
+          <th class="center">회사이름</th>
+          <th class="center">공고일자</th>
           <th>제목</th>
           <th>카테고리</th>
           <th>관련뉴스기사</th>
@@ -26,6 +27,7 @@
         <tr>
           <td class="center">{{ rescue.area }}</td>
           <td class="center">{{ rescue.case_num }}</td>
+          <td class="center">{{ rescue.company_name }}</td>
           <td class="center">{{ rescue.date }}</td>
           <td><a href="/information/rescue_detail/{{ rescue.id }}">{{ rescue.subject }}</a></td>
           <td>{{ rescue.category }}</td>

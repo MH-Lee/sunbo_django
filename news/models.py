@@ -48,8 +48,8 @@ class LPCompany(models.Model):
 class MainCompany(models.Model):
     category = models.CharField(max_length=20, verbose_name="카테고리")
     date = models.CharField(max_length=10, verbose_name="날짜")
-    company_name = models.CharField(max_length=20, verbose_name="기업명")
-    news_title = models.CharField(max_length=200, verbose_name="뉴스제목")
+    company_name = models.CharField(max_length=128, verbose_name="기업명")
+    news_title = models.CharField(max_length=300, verbose_name="뉴스제목")
     news_url = models.CharField(max_length=300, verbose_name="뉴스URL")
     media = models.CharField(max_length=20, verbose_name="신문사")
     writer = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -93,7 +93,7 @@ class Professor(models.Model):
 class Portfolio(models.Model):
     category = models.CharField(max_length=10, verbose_name="카테고리")
     date = models.CharField(max_length=10, verbose_name="날짜")
-    company_name = models.CharField(max_length=20, verbose_name="기업명")
+    company_name = models.CharField(max_length=128, verbose_name="기업명")
     media = models.CharField(max_length=20, verbose_name="신문사")
     news_title = models.CharField(max_length=200, verbose_name="뉴스제목")
     news_url = models.CharField(max_length=300, verbose_name="뉴스URL")

@@ -9,13 +9,13 @@
 {% endblock %}
 {% block table %}
 <div class="row mt-5">
-  <div class="col-12">
-    <table class="table table-light">
+  <div class="table-responsive">
+    <table class="table">
       <thead class="thead-light">
         <tr>
-          <th>신문사</th>
+          <th class="center">신문사</th>
           <th>뉴스제목</th>
-          <th>날짜</th>
+          <th class="center">날짜</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -56,7 +56,7 @@
         </li>
         {% endif %}
         <li class="page-item active">
-          <a class="page-link" href="#">{{ investment_info.number }} / {{ lp_company_info.paginator.num_pages }}</a>
+          <a class="page-link" href="#">{{ investment_info.number }} / {{ investment_info.paginator.num_pages }}</a>
         </li>
         {% if investment_info.has_next %}
         <li class="page-item">
