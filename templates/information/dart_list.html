@@ -9,25 +9,57 @@
 {% endblock %}
 {% block table %}
 <div class="row mt-5">
-  <div class="table-responsive">
+  <div>
     <table class="table">
       <thead class="thead-light">
         <tr>
-          <th class="center">회사명</th>
-          <th class="center">회사코드</th>
-          <th class="center">공고일자</th>
-          <th class="center">타법인명</th>
-          <th class="center">문서내용</th>
-          <th>관련뉴스</th>
+          <th class="center">회사명
+            {% if direction == 'asc' %}
+              <a id href="?order_by=company_name&direction=asc"><i class="fa fa-fw fa-sort"></i></a>
+            {% else %}
+              <a id href="?order_by=company_name&direction=desc"><i class="fa fa-fw fa-sort"></i></a>
+            {% endif %}
+          </th>
+          <th class="sm-col">회사코드
+            {% if direction == 'asc' %}
+              <a id href="?order_by=ticker&direction=asc"><i class="fa fa-fw fa-sort"></i></a>
+            {% else %}
+              <a id href="?order_by=ticker&direction=desc"><i class="fa fa-fw fa-sort"></i></a>
+            {% endif %}
+          </th>
+          <th class="sm-col">공고일자
+            {% if direction == 'asc' %}
+              <a id href="?order_by=date&direction=asc"><i class="fa fa-fw fa-sort"></i></a>
+            {% else %}
+              <a id href="?order_by=date&direction=desc"><i class="fa fa-fw fa-sort"></i></a>
+            {% endif %}
+          </th>
+          <th class="other">타법인명
+            {% if direction == 'asc' %}
+              <a id href="?order_by=another_name&direction=asc"><i class="fa fa-fw fa-sort"></i></a>
+            {% else %}
+              <a id href="?order_by=another_name&direction=desc"><i class="fa fa-fw fa-sort"></i></a>
+            {% endif %}
+          </th>
+          <th class="center">문서내용
+              <a id href=""><i class="fa fa-fw fa-sort"></i></a>
+          </th>
+          <th>관련뉴스
+            {% if direction == 'asc' %}
+              <a id href="?order_by=news_title&direction=asc"><i class="fa fa-fw fa-sort"></i></a>
+            {% else %}
+              <a id href="?order_by=news_title&direction=desc"><i class="fa fa-fw fa-sort"></i></a>
+            {% endif %}
+          </th>
         </tr>
       </thead>
       <tbody></tbody>
         {% for dart in dart_infos %}
         <tr>
           <td class="center">{{ dart.company_name }}</td>
-          <td class="center">{{ dart.ticker }}</td>
-          <td class="center">{{ dart.date }}</td>
-          <td class="center">{{ dart.another_name }}</td>
+          <td class="sm-col">{{ dart.ticker }}</td>
+          <td class="sm-col">{{ dart.date }}</td>
+          <td class="other">{{ dart.another_name }}</td>
           <td class="center"><a href="{{ dart.contents }}">문서내용</a></td>          
           {% if dart.news_url == 'None' %}
           <td>{{ dart.news_title }}</td>

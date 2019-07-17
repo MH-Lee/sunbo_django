@@ -3,30 +3,6 @@
     margin-bottom: 1rem;
     }
   
-  table {
-    margin-left: 30px;
-  }
-  th {
-    text-align: center;
-    width:500px;
-    table-layout:fixed;
-      word-wrap:break-word;
-  }
-    .center {
-      text-align: center;
-      width:250px;
-      table-layout:fixed;
-    }
-  td {
-    width:500px;
-    table-layout:fixed;
-      word-wrap:break-word;
-  }
-    .center {
-      text-align: center;
-      width:250px;
-      table-layout:fixed;
-    }
   .navbar {
     border-bottom: 1px #ffffff;
   }
@@ -63,14 +39,62 @@
   }
 
   .flex-container-2 .flex-nav {
-    padding: 20px;
-    width: 20%;
+    padding: 15px;
+    width: 15%;
   }
   
   .flex-container-2 .flex-table {
-    width: 73%;
+    width: 77%;
   }
 
+  table {
+    margin-left: 3rem;
+    font-size: 14px;
+  }
+  th {
+    text-align: center;
+    width:520px;
+    table-layout:fixed;
+      word-wrap:break-word;
+  }
+    .center {
+      text-align: center;
+      width:180px;
+      table-layout:fixed;
+      word-break: keep-all; 
+    }
+    .sm-col {
+      text-align: center;
+      width:180px;
+    }
+    .other {
+      text-align: center;
+      width:220px;
+    }
+  td {
+    width:520px;
+    table-layout:fixed;
+      word-wrap:break-word;
+  }
+    .center {
+      text-align: center;
+      width:180px;
+      table-layout:fixed;
+      word-break: keep-all; 
+    }
+    .sm-col {
+      text-align: center;
+      width:180px;
+    }
+    .other {
+      text-align: center;
+      width:220px;
+      word-break: keep-all; 
+    }
+
+  .investnews-table .table {
+    width: 1200px;
+  }
   .flex-nav .side-menu-name {
     margin-top: 2rem;
     margin-left: 3rem;

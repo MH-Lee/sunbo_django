@@ -29,7 +29,7 @@ a {
     margin-left: 10rem;
     border-bottom: 1px #ffffff;
   }
-  ul > li {
+  #navbarText > ul > li{
     font-size: 13pt;
     padding: 0 0.7rem;
   }

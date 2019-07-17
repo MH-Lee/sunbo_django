@@ -16,15 +16,28 @@ def LP_company_list(request):
         return redirect('/accounts/login/')
     if request.method == 'GET':
         query =  request.GET.get('q')
-        try:
-            lp_company_obj = LPCompany.objects.filter(
-                Q(media__icontains=query) | Q(news_title__icontains=query) |\
-                Q(company_name__icontains=query) | Q(category__icontains=query)
-            ).order_by('-id')
-        except:
-            lp_company_obj = LPCompany.objects.all().order_by('-id')    
+        order_by = request.GET.get('order_by')
+        direction = request.GET.get('direction')
+        if order_by != None:
+            if direction == 'asc':
+                lp_company_obj = LPCompany.objects.all().order_by(order_by)
+                direction = 'desc'
+            else:
+                lp_company_obj = LPCompany.objects.all().order_by('-{}'.format(order_by))
+                direction = 'asc'
+        else:   
+            try:
+                lp_company_obj = LPCompany.objects.filter(
+                    Q(media__icontains=query) | Q(news_title__icontains=query) |\
+                    Q(company_name__icontains=query) | Q(category__icontains=query)
+                ).order_by('-id')
+                direction = None
+            except:
+                lp_company_obj = LPCompany.objects.all().order_by('-id')    
+                direction = None
     else:
         lp_company_obj = LPCompany.objects.all().order_by('-id')
+        direction = None
     page = int(request.GET.get('p',1))
     try:
         paginator = Paginator(lp_company_obj, 15)
@@ -32,7 +45,7 @@ def LP_company_list(request):
     except:
         paginator = Paginator(lp_company_obj, 15)
         lp_company_info = NULL
-    return render(request, 'news/lp_company_list.html', {'lp_company_info':lp_company_info})
+    return render(request, 'news/lp_company_list.html', {'lp_company_info':lp_company_info, 'direction':direction})
 
 # main_company_view
 def main_company_list(request):
@@ -40,15 +53,28 @@ def main_company_list(request):
         return redirect('/accounts/login/')
     if request.method == 'GET':
         query =  request.GET.get('q')
-        try:
-            main_company_obj = MainCompany.objects.filter(
-               Q(media__icontains=query) | Q(news_title__icontains=query) |\
-                Q(company_name__icontains=query) | Q(category__icontains=query)
-            ).order_by('-id')
-        except:
-            main_company_obj = MainCompany.objects.all().order_by('-id')    
+        order_by = request.GET.get('order_by')
+        direction = request.GET.get('direction')
+        if order_by != None:
+            if direction == 'asc':
+                main_company_obj = MainCompany.objects.all().order_by(order_by)
+                direction = 'desc'
+            else:
+                main_company_obj = MainCompany.objects.all().order_by('-{}'.format(order_by))
+                direction = 'asc'
+        else:   
+            try:
+                main_company_obj = MainCompany.objects.filter(
+                Q(media__icontains=query) | Q(news_title__icontains=query) |\
+                    Q(company_name__icontains=query) | Q(category__icontains=query)
+                ).order_by('-id')
+                direction = None
+            except:
+                main_company_obj = MainCompany.objects.all().order_by('-id') 
+                direction = None   
     else:
         main_company_obj = MainCompany.objects.all().order_by('-id')
+        direction = None
     page = int(request.GET.get('p',1))
     try:
         paginator = Paginator(main_company_obj, 15)
@@ -56,7 +82,7 @@ def main_company_list(request):
     except:
         paginator = Paginator(main_company_obj, 15)
         main_company_info = NULL
-    return render(request, 'news/main_company_list.html', {'main_company_info':main_company_info})
+    return render(request, 'news/main_company_list.html', {'main_company_info':main_company_info, 'direction':direction})
 
 # portfolio_view
 def portfolio_list(request):
@@ -64,15 +90,28 @@ def portfolio_list(request):
         return redirect('/accounts/login/')
     if request.method == 'GET':
         query =  request.GET.get('q')
-        try:
-            _port_obj = Portfolio.objects.filter(
-               Q(media__icontains=query) | Q(news_title__icontains=query) |\
-                Q(company_name__icontains=query) | Q(category__icontains=query)
-            ).order_by('-id')
-        except:
-            _port_obj = Portfolio.objects.all().order_by('-id')    
+        order_by = request.GET.get('order_by')
+        direction = request.GET.get('direction')
+        if order_by != None:
+            if direction == 'asc':
+                _port_obj = Portfolio.objects.all().order_by(order_by)
+                direction = 'desc'
+            else:
+                _port_obj = Portfolio.objects.all().order_by('-{}'.format(order_by))
+                direction = 'asc'
+        else:   
+            try:
+                _port_obj = Portfolio.objects.filter(
+                Q(media__icontains=query) | Q(news_title__icontains=query) |\
+                    Q(company_name__icontains=query) | Q(category__icontains=query)
+                ).order_by('-id')
+                direction = None
+            except:
+                _port_obj = Portfolio.objects.all().order_by('-id')
+                direction = None
     else:
         _port_obj = Portfolio.objects.all().order_by('-id')
+        direction = None
     page = int(request.GET.get('p',1))
     try:
         paginator = Paginator(_port_obj, 15)
@@ -80,7 +119,7 @@ def portfolio_list(request):
     except:
         paginator = Paginator(_port_obj, 15)
         portfolio_info = NULL
-    return render(request, 'news/portfolio_list.html', {'portfolio_info':portfolio_info})
+    return render(request, 'news/portfolio_list.html', {'portfolio_info':portfolio_info, 'direction':direction})
 
 # investment_news_view
 def investment_news_list(request):
@@ -88,15 +127,28 @@ def investment_news_list(request):
         return redirect('/accounts/login/')
     if request.method == 'GET':
         query =  request.GET.get('q')
-        try:
-            _invest_obj = InvestNews.objects.filter(
-               Q(media__icontains=query) | Q(news_title__icontains=query) |\
-                Q(company_name__icontains=query) | Q(category__icontains=query)
-            ).order_by('-id')
-        except:
-            _invest_obj = InvestNews.objects.all().order_by('-id')    
+        order_by = request.GET.get('order_by')
+        direction = request.GET.get('direction')
+        if order_by != None:
+            if direction == 'asc':
+                _invest_obj = InvestNews.objects.all().order_by(order_by)
+                direction = 'desc'
+            else:
+                _invest_obj = InvestNews.objects.all().order_by('-{}'.format(order_by))
+                direction = 'asc'
+        else:   
+            try:
+                _invest_obj = InvestNews.objects.filter(
+                Q(media__icontains=query) | Q(news_title__icontains=query) |\
+                    Q(company_name__icontains=query) | Q(category__icontains=query)
+                ).order_by('-id')
+                direction = None
+            except:
+                _invest_obj = InvestNews.objects.all().order_by('-id')    
+                direction = None
     else:
         _invest_obj = InvestNews.objects.all().order_by('-id')
+        direction = None
     page = int(request.GET.get('p',1))
     try:
         paginator = Paginator(_invest_obj, 15)
@@ -104,7 +156,7 @@ def investment_news_list(request):
     except:
         paginator = Paginator(_invest_obj, 15)
         investment_info = NULL
-    return render(request, 'news/investment_news_list.html', {'investment_info':investment_info})
+    return render(request, 'news/investment_news_list.html', {'investment_info':investment_info, 'direction':direction})
 
 
 # portfolio_view
@@ -113,15 +165,28 @@ def professor_list(request):
         return redirect('/accounts/login/')
     if request.method == 'GET':
         query =  request.GET.get('q')
-        try:
-            _professor_obj = Professor.objects.filter(
-               Q(media__icontains=query) | Q(news_title__icontains=query) |\
-                Q(small_class_1__icontains=query) | Q(small_class_2__icontains=query)
-            ).order_by('-id')
-        except:
-            _professor_obj = Professor.objects.all().order_by('-id')    
+        order_by = request.GET.get('order_by')
+        direction = request.GET.get('direction')
+        if order_by != None:
+            if direction == 'asc':
+                _professor_obj = Professor.objects.all().order_by(order_by)
+                direction = 'desc'
+            else:
+                _professor_obj = Professor.objects.all().order_by('-{}'.format(order_by))
+                direction = 'asc'
+        else:   
+            try:
+                _professor_obj = Professor.objects.filter(
+                Q(media__icontains=query) | Q(news_title__icontains=query) |\
+                    Q(small_class_1__icontains=query) | Q(small_class_2__icontains=query)
+                ).order_by('-id')
+                direction = None
+            except:
+                _professor_obj = Professor.objects.all().order_by('-id')
+                direction = None
     else:
         _professor_obj = Professor.objects.all().order_by('-id')
+        direction = None
     page = int(request.GET.get('p',1))
     try:
         paginator = Paginator(_professor_obj, 15)
@@ -129,5 +194,5 @@ def professor_list(request):
     except:
         paginator = Paginator(_professor_obj, 15)
         professor_info = NULL
-    return render(request, 'news/professor_list.html', {'professor_info':professor_info})
+    return render(request, 'news/professor_list.html', {'professor_info':professor_info,'direction':direction})
 

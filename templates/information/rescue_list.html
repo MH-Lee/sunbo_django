@@ -9,17 +9,55 @@
 {% endblock %}
 {% block table %}
 <div class="row mt-5">
-  <div class="table-responsive">
+  <div>
     <table class="table">
       <thead class="thead-light">
         <tr>
-          <th class="center">법원</th>
-          <th class="center">사건번호</th>
-          <th class="center">회사이름</th>
-          <th class="center">공고일자</th>
-          <th>제목</th>
-          <th>카테고리</th>
-          <th>관련뉴스기사</th>
+          <th class="center">법원
+            {% if direction == 'asc' %}
+              <a id href="?order_by=area&direction=asc"><i class="fa fa-fw fa-sort"></i></a>
+            {% else %}
+              <a id href="?order_by=area&direction=desc"><i class="fa fa-fw fa-sort"></i></a>
+            {% endif %}
+          </th>
+          <th class="center">사건번호
+            {% if direction == 'asc' %}
+              <a id href="?order_by=case_num&direction=asc"><i class="fa fa-fw fa-sort"></i></a>
+            {% else %}
+              <a id href="?order_by=case_num&direction=desc"><i class="fa fa-fw fa-sort"></i></a>
+            {% endif %}
+          </th>
+          <th class="center">회사이름
+            {% if direction == 'asc' %}
+              <a id href="?order_by=company_name&direction=asc"><i class="fa fa-fw fa-sort"></i></a>
+            {% else %}
+              <a id href="?order_by=company_name&direction=desc"><i class="fa fa-fw fa-sort"></i></a>
+            {% endif %}
+          </th>
+          <th class="small">공시일자
+            {% if direction == 'asc' %}
+              <a id href="?order_by=date&direction=asc"><i class="fa fa-fw fa-sort"></i></a>
+            {% else %}
+              <a id href="?order_by=date&direction=desc"><i class="fa fa-fw fa-sort"></i></a>
+            {% endif %}
+          </th>
+          <th>제목
+            {% if direction == 'asc' %}
+              <a id href="?order_by=subject&direction=asc"><i class="fa fa-fw fa-sort"></i></a>
+            {% else %}
+              <a id href="?order_by=subject&direction=desc"><i class="fa fa-fw fa-sort"></i></a>
+            {% endif %}
+          </th>
+          <th>카테고리
+            <a href=""><i class="fa fa-fw fa-sort"></i></a>
+          </th>
+          <th>관련뉴스기사
+            {% if direction == 'asc' %}
+              <a id href="?order_by=news_title&direction=asc"><i class="fa fa-fw fa-sort"></i></a>
+            {% else %}
+              <a id href="?order_by=news_title&direction=desc"><i class="fa fa-fw fa-sort"></i></a>
+            {% endif %}
+          </th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -28,7 +66,7 @@
           <td class="center">{{ rescue.area }}</td>
           <td class="center">{{ rescue.case_num }}</td>
           <td class="center">{{ rescue.company_name }}</td>
-          <td class="center">{{ rescue.date }}</td>
+          <td class="sm-col">{{ rescue.date }}</td>
           <td><a href="/information/rescue_detail/{{ rescue.id }}">{{ rescue.subject }}</a></td>
           <td>{{ rescue.category }}</td>
           {% if rescue.news_url == 'None' %}
@@ -50,7 +88,7 @@
       <ul class="pagination justify-content-center">
         {% if rescues.has_previous %}
         <li class="page-item">
-            <a class="page-link" href="?p=1">처음으로</a>
+          <a class="page-link" href="?p=1">처음으로</a>
         </li>
         <li class="page-item">
           <a class="page-link" href="?p={{ rescues.previous_page_number }}">이전으로</a>
@@ -68,7 +106,7 @@
         </li>
         {% if rescues.has_next %}
         <li class="page-item">
-          <a class="page-link" href="?p={{ rescues.next_page_number }}">다음으로</a>
+            <a class="page-link" href="?p={{ rescues.next_page_number }}">다음으로</a>
         </li>
         <li class="page-item">
             <a class="page-link" href="?p={{ rescues.paginator.num_pages }}">마지막으로</a>

@@ -9,13 +9,31 @@
 {% endblock %}
 {% block table %}
 <div class="row mt-5">
-  <div class="table-responsive">
+  <div class="investnews-table">
     <table class="table">
       <thead class="thead-light">
         <tr>
-          <th class="center">신문사</th>
-          <th>뉴스제목</th>
-          <th class="center">날짜</th>
+          <th class="center">신문사
+            {% if direction == 'asc' %}
+              <a id href="?order_by=media&direction=asc"><i class="fa fa-fw fa-sort"></i></a>
+            {% else %}
+              <a id href="?order_by=media&direction=desc"><i class="fa fa-fw fa-sort"></i></a>
+            {% endif %}
+          </th>
+          <th>뉴스제목
+            {% if direction == 'asc' %}
+              <a id href="?order_by=news_title&direction=asc"><i class="fa fa-fw fa-sort"></i></a>
+            {% else %}
+              <a id href="?order_by=news_title&direction=desc"><i class="fa fa-fw fa-sort"></i></a>
+            {% endif %}
+          </th>
+          <th class="sm-col">날짜
+            {% if direction == 'asc' %}
+              <a id href="?order_by=date&direction=asc"><i class="fa fa-fw fa-sort"></i></a>
+            {% else %}
+              <a id href="?order_by=date&direction=desc"><i class="fa fa-fw fa-sort"></i></a>
+            {% endif %}
+          </th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -29,7 +47,7 @@
           {% else %}
           <td><a href="{{ inv.news_url }}">{{ inv.news_title }}</a></td>
           {% endif %}
-          <td class="center">{{ inv.date }}</td>
+          <td class="sm-col">{{ inv.date }}</td>
         </tr>
         {% endfor %}
       </tbody>
