@@ -12,10 +12,6 @@ def rescue_detail(request, pk):
         raise Http404('게시글을 찾을 수 없습니다.')
     return render(request, 'information/rescue_detail.html', {'rescue':rescue})
 
-def add_one(a):
-    a +=1
-    return a
-
 def rescue_list(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
@@ -26,10 +22,8 @@ def rescue_list(request):
         if order_by != None:
             if direction == 'asc':
                 rescue_obj = Rescue.objects.all().order_by(order_by)
-                direction = 'desc'
             else:
                 rescue_obj = Rescue.objects.all().order_by('-{}'.format(order_by))
-                direction = 'asc'
         else:   
             try:
                 rescue_obj = Rescue.objects.filter(
@@ -51,7 +45,7 @@ def rescue_list(request):
     except:
         paginator = Paginator(rescue_obj, 15)
         rescues = NULL
-    return render(request, 'information/rescue_list.html', {'rescues':rescues, 'direction':direction})
+    return render(request, 'information/rescue_list.html', {'rescues':rescues, 'order_by':order_by , 'direction':direction})
 
 # dart_view
 def dart_list(request):
@@ -64,10 +58,8 @@ def dart_list(request):
         if order_by != None:
             if direction == 'asc':
                 darts = Dart.objects.all().order_by(order_by)
-                direction = 'desc'
             else:
                 darts = Dart.objects.all().order_by('-{}'.format(order_by))
-                direction = 'asc'
         else:   
             try:
                 darts = Dart.objects.filter(
@@ -87,4 +79,4 @@ def dart_list(request):
     except:
         paginator = Paginator(darts, 15)
         dart_infos = NULL
-    return render(request, 'information/dart_list.html', {'dart_infos':dart_infos, 'direction':direction})
+    return render(request, 'information/dart_list.html', {'dart_infos':dart_infos, 'order_by':order_by, 'direction':direction})

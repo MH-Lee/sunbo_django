@@ -21,10 +21,8 @@ def LP_company_list(request):
         if order_by != None:
             if direction == 'asc':
                 lp_company_obj = LPCompany.objects.all().order_by(order_by)
-                direction = 'desc'
             else:
                 lp_company_obj = LPCompany.objects.all().order_by('-{}'.format(order_by))
-                direction = 'asc'
         else:   
             try:
                 lp_company_obj = LPCompany.objects.filter(
@@ -45,7 +43,8 @@ def LP_company_list(request):
     except:
         paginator = Paginator(lp_company_obj, 15)
         lp_company_info = NULL
-    return render(request, 'news/lp_company_list.html', {'lp_company_info':lp_company_info, 'direction':direction})
+    return render(request, 'news/lp_company_list.html', {'lp_company_info':lp_company_info,\
+                                                        'order_by':order_by, 'direction':direction})
 
 # main_company_view
 def main_company_list(request):
@@ -58,10 +57,8 @@ def main_company_list(request):
         if order_by != None:
             if direction == 'asc':
                 main_company_obj = MainCompany.objects.all().order_by(order_by)
-                direction = 'desc'
             else:
                 main_company_obj = MainCompany.objects.all().order_by('-{}'.format(order_by))
-                direction = 'asc'
         else:   
             try:
                 main_company_obj = MainCompany.objects.filter(
@@ -82,7 +79,8 @@ def main_company_list(request):
     except:
         paginator = Paginator(main_company_obj, 15)
         main_company_info = NULL
-    return render(request, 'news/main_company_list.html', {'main_company_info':main_company_info, 'direction':direction})
+    return render(request, 'news/main_company_list.html', {'main_company_info':main_company_info,\
+                                                            'order_by':order_by, 'direction':direction})
 
 # portfolio_view
 def portfolio_list(request):
@@ -95,10 +93,8 @@ def portfolio_list(request):
         if order_by != None:
             if direction == 'asc':
                 _port_obj = Portfolio.objects.all().order_by(order_by)
-                direction = 'desc'
             else:
                 _port_obj = Portfolio.objects.all().order_by('-{}'.format(order_by))
-                direction = 'asc'
         else:   
             try:
                 _port_obj = Portfolio.objects.filter(
@@ -119,7 +115,8 @@ def portfolio_list(request):
     except:
         paginator = Paginator(_port_obj, 15)
         portfolio_info = NULL
-    return render(request, 'news/portfolio_list.html', {'portfolio_info':portfolio_info, 'direction':direction})
+    return render(request, 'news/portfolio_list.html', {'portfolio_info':portfolio_info, \
+                                                        'order_by':order_by, 'direction':direction})
 
 # investment_news_view
 def investment_news_list(request):
@@ -132,10 +129,8 @@ def investment_news_list(request):
         if order_by != None:
             if direction == 'asc':
                 _invest_obj = InvestNews.objects.all().order_by(order_by)
-                direction = 'desc'
             else:
                 _invest_obj = InvestNews.objects.all().order_by('-{}'.format(order_by))
-                direction = 'asc'
         else:   
             try:
                 _invest_obj = InvestNews.objects.filter(
@@ -156,7 +151,8 @@ def investment_news_list(request):
     except:
         paginator = Paginator(_invest_obj, 15)
         investment_info = NULL
-    return render(request, 'news/investment_news_list.html', {'investment_info':investment_info, 'direction':direction})
+    return render(request, 'news/investment_news_list.html', {'investment_info':investment_info, \
+                                                              'order_by':order_by, 'direction':direction})
 
 
 # portfolio_view
@@ -170,10 +166,8 @@ def professor_list(request):
         if order_by != None:
             if direction == 'asc':
                 _professor_obj = Professor.objects.all().order_by(order_by)
-                direction = 'desc'
             else:
                 _professor_obj = Professor.objects.all().order_by('-{}'.format(order_by))
-                direction = 'asc'
         else:   
             try:
                 _professor_obj = Professor.objects.filter(
@@ -194,5 +188,6 @@ def professor_list(request):
     except:
         paginator = Paginator(_professor_obj, 15)
         professor_info = NULL
-    return render(request, 'news/professor_list.html', {'professor_info':professor_info,'direction':direction})
+    return render(request, 'news/professor_list.html', {'professor_info':professor_info,\
+                                                        'order_by':order_by, 'direction':direction})
 
