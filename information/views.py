@@ -45,7 +45,16 @@ def rescue_list(request):
     except:
         paginator = Paginator(rescue_obj, 15)
         rescues = NULL
-    return render(request, 'information/rescue_list.html', {'rescues':rescues, 'order_by':order_by , 'direction':direction})
+    index = rescues.number -1 
+    max_index = len(paginator.page_range) 
+    start_index = index -2 if index >= 2 else 0 
+    if index < 2 : 
+        end_index = 5-start_index 
+    else : 
+        end_index = index+3 if index <= max_index - 3 else max_index 
+    page_range = list(paginator.page_range[start_index:end_index]) 
+    return render(request, 'information/rescue_list.html', {'rescues':rescues, 'order_by':order_by , 'direction':direction,\
+                                                            'page_range':page_range, 'max_index':max_index-2})
 
 # dart_view
 def dart_list(request):

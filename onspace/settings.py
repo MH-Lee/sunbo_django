@@ -24,7 +24,7 @@ SECRET_KEY = '&a(8!mcxlvn@h7i@x0&pyp&3rtbz4hre4u@0r+ejif+7p2=!8f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-testing = False
+testing = True
 ALLOWED_HOSTS = []
 
 
@@ -101,9 +101,9 @@ else:
         'NAME': 'sunbo',
         'USER':'root',
         'PASSWORD':'1q2w3e4r',
-        'HOST':'localhost', 
+        'HOST':'localhost',
         'PORT':3306,
-        }     
+        }
     }
 
 
@@ -150,10 +150,27 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/'),
 ]
 
-
 AUTH_USER_MODEL = 'accounts.User'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 9,
+        }
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]

@@ -34,7 +34,7 @@
             <a id href="?order_by=company_name&direction=asc"><i class="fa fa-fw fa-sort"></i></a>
             {% endif %}
           </th>
-          <th class="small">공시일자
+          <th class="center">공시일자
             {% if direction == 'asc' %}
             <a id href="?order_by=date&direction=desc"><i class="fa fa-fw fa-sort"></i></a>
             {% else %}
@@ -109,9 +109,42 @@
           <a class="page-link" href="#">이전으로</a>
         </li>
         {% endif %}
-        <li class="page-item active">
+
+        <!-- <li class="page-item active">
           <a class="page-link" href="#">{{ rescues.number }} / {{ rescues.paginator.num_pages }}</a>
         </li>
+         -->
+        
+        {% if rescues.number > 2 %} 
+          {% if order_by != None %}
+            <li><a class="page-link" href="?p={{ 1 }}&order_by={{ order_by }}&direction={{ direction }}"> 1 </a></li>
+          {% else %}
+            <li><a class="page-link" href="?p={{ 1 }}"> 1 </a></li>
+          {% endif %}
+        <li class="page-link"><span>...<span class="sr-only">...</span></span></li> 
+        {% endif %}
+        
+        {% for i in page_range %} 
+        {% if rescues.number == i %} 
+        <li class="page-link" class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li> 
+        {% else %} 
+          {% if order_by != None %}
+            <li class="page-item active"><a class="page-link" href="?p={{ i }}&order_by={{ order_by }}&direction={{ direction }}">{{ i }}</a></li> 
+          {% else %} 
+            <li class="page-item active"><a class="page-link" href="?p={{ i }}">{{ i }}</a></li> 
+          {% endif %}
+        {% endif %} 
+        {% endfor %} 
+
+        {% if rescues.number < max_index %} 
+        <li class="page-link"><span>...<span class="sr-only">...</span></span></li> 
+          {% if order_by != None %}
+            <li><a class="page-link" href="?page={{ max_index|add:'2' }}&order_by={{ order_by }}&direction={{ direction }}">{{ max_index|add:"2" }}</a></li> 
+          {% else %}
+            <li><a class="page-link" href="?page={{ max_index|add:'2' }}">{{ max_index|add:"2" }}</a></li> 
+          {% endif %}
+        {% endif %}
+
         {% if rescues.has_next %}
         <li class="page-item">
           {% if order_by != None %}

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
-from .forms import RegisterForm
+from django.contrib.auth.forms import PasswordChangeForm
+from .forms import RegisterForm 
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
