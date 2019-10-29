@@ -1,5 +1,5 @@
 from .models import DealFlowBox, UpdateChecker
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 # from django.http import Http404, HttpResponse
 from django.core.paginator import Paginator
 from django.db.models import Q
@@ -39,5 +39,5 @@ def dfb_list(request):
         dfb_infos = paginator.get_page(page)
     except:
         paginator = Paginator(dfbs, 15)
-        dfb_infos = NULL
+        dfb_infos = None
     return render(request, 'dealflowbox/deal_list.html', {'dfb_infos':dfb_infos, 'order_by':order_by, 'direction':direction})

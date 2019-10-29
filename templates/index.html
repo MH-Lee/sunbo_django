@@ -59,6 +59,21 @@
         <li class="nav-item">
           <a class="nav-link" href="/dealflowbox/deal_list/">Deal Flow Box</a>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" 
+            data-toggle="dropdown" 
+            href="#" role="button" 
+            aria-haspopup="true" 
+            aria-expanded="false">
+            추천시스템 &nbsp; 
+            <small><i>beta</i>
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">소개</a>
+            <a class="dropdown-item" href="#">스타트업 네트워크</a>
+            <a class="dropdown-item" href="#">추천시스템</a>
+          </div>
+        </li>
       </ul>
       <div>
         {% if request.user.is_authenticated %}
