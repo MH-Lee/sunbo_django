@@ -25,5 +25,6 @@ urlpatterns = [
     path('information/', include('information.urls')),
     path('news/', include('news.urls')),
     path('dealflowbox/', include('dealflowbox.urls')),
+    path('project/', include('recommender.urls')),
     # path('accounts/', include('django.contrib.auth.urls')),
 ]

@@ -39,12 +39,13 @@
   }
 
   .flex-container-2 .flex-nav {
-    padding: 15px;
+    font-size: 17px;
+    padding: 8px;
     width: 15%;
   }
   
   .flex-container-2 .flex-table {
-    width: 77%;
+    width: 75%;
   }
 
   table {
@@ -97,13 +98,13 @@
   }
   .flex-nav .side-menu-name {
     margin-top: 2rem;
-    margin-left: 3rem;
+    margin-left: 1rem;
     text-align: center;
   }
 
   .flex-nav .menu-nav {
     margin-top: 2rem;
-    margin-left: 3rem;
+    margin-left: 1rem;
 
   }
   .menu-nav .nav {
