@@ -1,5 +1,16 @@
 {% extends "project/_base.html" %}
+{% load static from staticfiles %}  
+{% block subcss %}
+<link href="{% static 'css/network.css' %}" rel="stylesheet">
+{% endblock %}
 {% block title %}스타트업 네트워크{% endblock %}
 {% block subcontent %}
-
+<iframe 
+src="{% url 'startup' %}" 
+name="targetframe" 
+allowTransparency="true" 
+scrolling="no" 
+frameborder="0" 
+style="height:1000px;width:2000px"
+></iframe>
 {% endblock %}
