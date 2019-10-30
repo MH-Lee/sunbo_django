@@ -5,6 +5,8 @@
   role="button">
   Add deal info
 </a>
+<button type="submit" class="btn btn-primary" onclick="location.href='/dealflowbox/update'">업데이트</button>
+
 {% endblock %}
 {% block search %}
 <form class="form-inline my-2 my-lg-0 justify-content-end"  method="GET" action="{% url 'dfb_list' %}">
@@ -115,7 +117,9 @@
             <a class="page-link" href="#">마지막으로</a>
         </li>
         {% endif %}
+
       </ul>
+
     </nav>
   </div>
 </div>

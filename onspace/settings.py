@@ -47,6 +47,7 @@ INSTALLED_APPS += [
     'information',
     'news',
     'dealflowbox',
+    'recommender'
 ]
 
 MIDDLEWARE = [

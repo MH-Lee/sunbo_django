@@ -43,6 +43,9 @@
     padding: 15px;
     width: 10%;
   }
+  /* .flex-container-2 > .flex-table > .subtitle > h1 > form.update {
+    display: inline-block;
+  } */
 
   .flex-container-2 .flex-table {
     width: 75%;

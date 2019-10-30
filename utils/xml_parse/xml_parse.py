@@ -5,7 +5,7 @@ import numpy as np
 import time
 total_df = pd.DataFrame(columns=["title", "url","case_num", "content"])
 
-file = open('rescue2.txt', 'r', encoding='utf-8')
+file = open('rescue_20191030.txt', 'r', encoding='utf-8')
 soup = BeautifulSoup(file, "html.parser")
 post = soup.findAll('item')
 

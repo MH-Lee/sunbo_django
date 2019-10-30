@@ -45,7 +45,7 @@ def get_url(data):
     return url
 
 def dart_send():
-    data = pd.read_excel('./data/dart.xlsx')
+    data = pd.read_excel('./utils/data/dart.xlsx')
     data['뉴스제목'] = data['관련뉴스기사'].apply(lambda x:remove_tag(x))
     data['뉴스URL'] = data['관련뉴스기사'].apply(lambda x:get_url(x))
     data['문서내용'] = data['문서내용'].apply(lambda x:get_url(x))
@@ -62,7 +62,8 @@ def dart_send():
         print(i)
         company_name = data1.iloc[i,0]
         ticker = data1.iloc[i,1]
-        date = data1.iloc[i,2]
+        date = datetime.datetime.strptime(str(data1.iloc[i,2]), "%Y%m%d").date().strftime("%Y-%m-%d")
+        print(date)
         another_name = data1.iloc[i,3]
         contents = data1.iloc[i,4]
         news_title = str(data1.iloc[i,5])
@@ -77,7 +78,7 @@ def dart_send():
     Dart.objects.bulk_create(dart_list)
 
 def invest_news_send():
-    data = pd.read_excel('./data/invest_news.xlsx')
+    data = pd.read_excel('./utils/data/invest_news.xlsx')
     data.sort_values(by=['날짜'], inplace=True)
     data['뉴스URL'] = data['뉴스제목'].apply(lambda x:get_url(x))
     data['뉴스제목'] = data['뉴스제목'].apply(lambda x:remove_tag(x))
@@ -95,7 +96,7 @@ def invest_news_send():
     print('invest_news 업로드')
 
 def LP_company_send():
-    data = pd.read_excel('./data/LPcompany.xlsx')
+    data = pd.read_excel('./utils/data/LPcompany.xlsx')
     data.sort_values(by=['날짜'], inplace=True)
     data['뉴스URL'] = data['뉴스제목'].apply(lambda x:get_url(x))
     data['뉴스제목'] = data['뉴스제목'].apply(lambda x:remove_tag(x))
@@ -116,7 +117,7 @@ def LP_company_send():
     print('LP기업 업로드')
 
 def main_company_send():
-    data = pd.read_excel('./data/main_company.xlsx')
+    data = pd.read_excel('./utils/data/main_company.xlsx')
     data.sort_values(by=['날짜'], inplace=True)
     data['뉴스URL'] = data['뉴스제목'].apply(lambda x:get_url(x))
     data['뉴스제목'] = data['뉴스제목'].apply(lambda x:remove_tag(x))
@@ -136,7 +137,7 @@ def main_company_send():
     print('Main기업 업로드')
 
 def portfolio_send():
-    data = pd.read_excel('./data/Portfolio.xlsx')
+    data = pd.read_excel('./utils/data/Portfolio.xlsx')
     data.sort_values(by=['날짜'], inplace=True)
     data['뉴스URL'] = data['뉴스제목'].apply(lambda x:get_url(x))
     data['뉴스제목'] = data['뉴스제목'].apply(lambda x:remove_tag(x))
@@ -167,7 +168,7 @@ def nan_remove(data):
     return ret
 
 def prof_send():
-    data = pd.read_excel('./data/professor.xlsx')
+    data = pd.read_excel('./utils/data/professor.xlsx')
     data.sort_values(by=['날짜'], inplace=True)
     data['뉴스URL'] = data['뉴스제목'].apply(lambda x:get_url(x))
     data['뉴스제목'] = data['뉴스제목'].apply(lambda x:remove_tag(x))
@@ -187,18 +188,21 @@ def prof_send():
         prof_list.append(prof_obj)
     Professor.objects.bulk_create(prof_list)
     print('교수개발 업로드')
-data = pd.read_excel('./data/rescue_all.xlsx')
-data.head(2)
-data.sort_values(by=['date'], inplace=True)
-data['date'] = data['date'].apply(lambda x:str(x).replace('.','-'))
+
+# data = pd.read_excel('./utils/data/rescue_all.xlsx')
+# data.head(2)
+# data.sort_values(by=['date'], inplace=True)
+# data['date'] = data['date'].apply(lambda x:str(x).replace('.','-'))
 
 def resuce_send():
-    data = pd.read_excel('./data/rescue_all.xlsx')
+    data = pd.read_excel('./utils/data/rescue_all.xlsx')
     data.sort_values(by=['date'], inplace=True)
     data['date'] = data['date'].apply(lambda x:str(x).replace('.','-'))
     rescue_list = []
     for i in range(data.shape[0]):
-        date = data.iloc[i,4]
+        date = datetime.datetime.strptime(str(data.iloc[i,4]), "%Y-%m-%d %H:%M:%S").date().strftime("%Y-%m-%d")
+        if i % 100 == 0:
+            print(date)
         area = data.iloc[i,0]
         case_num = data.iloc[i,1]
         company_name = data.iloc[i,2]
