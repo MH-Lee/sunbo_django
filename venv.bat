@@ -1,1 +1,1 @@
-C:\Users\sunboangel\venv\django\Scripts\activate
+C:\Users\LeeMH\pyvenv\django\Scripts\activate
