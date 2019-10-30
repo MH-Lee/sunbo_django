@@ -98,7 +98,7 @@ def portfolio_list(request):
         else:   
             try:
                 _port_obj = Portfolio.objects.filter(
-                Q(media__icontains=query) | Q(news_title__icontains=query) |\
+                    Q(media__icontains=query) | Q(news_title__icontains=query) |\
                     Q(company_name__icontains=query) | Q(category__icontains=query)
                 ).order_by('-id')
                 direction = None
@@ -114,7 +114,7 @@ def portfolio_list(request):
         portfolio_info = paginator.get_page(page)
     except:
         paginator = Paginator(_port_obj, 15)
-        portfolio_info = NULL
+        portfolio_info = None
     return render(request, 'news/portfolio_list.html', {'portfolio_info':portfolio_info, \
                                                         'order_by':order_by, 'direction':direction})
 
@@ -134,8 +134,8 @@ def investment_news_list(request):
         else:   
             try:
                 _invest_obj = InvestNews.objects.filter(
-                Q(media__icontains=query) | Q(news_title__icontains=query) |\
-                    Q(company_name__icontains=query) | Q(category__icontains=query)
+                    Q(media__icontains=query) | Q(news_title__icontains=query) |\
+                    Q(date__icontains=query) 
                 ).order_by('-id')
                 direction = None
             except:
@@ -150,7 +150,7 @@ def investment_news_list(request):
         investment_info = paginator.get_page(page)
     except:
         paginator = Paginator(_invest_obj, 15)
-        investment_info = NULL
+        investment_info = None
     return render(request, 'news/investment_news_list.html', {'investment_info':investment_info, \
                                                               'order_by':order_by, 'direction':direction})
 
@@ -187,7 +187,7 @@ def professor_list(request):
         professor_info = paginator.get_page(page)
     except:
         paginator = Paginator(_professor_obj, 15)
-        professor_info = NULL
+        professor_info = None
     return render(request, 'news/professor_list.html', {'professor_info':professor_info,\
                                                         'order_by':order_by, 'direction':direction})
 
