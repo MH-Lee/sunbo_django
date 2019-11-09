@@ -4,6 +4,7 @@ import numpy as np
 from bs4 import BeautifulSoup
 import os, sys, glob
 import datetime
+from ast import literal_eval
 
 start_path = os.getcwd()
 proj_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,7 +22,9 @@ from news.models import (InvestNews,
                         LPCompany,
                         MainCompany,
                         Portfolio,
-                        Professor)
+                        Professor
+                        )
+from recommender.models import Recommender
 
 def remove_tag(data):
     try:
@@ -194,7 +197,7 @@ def prof_send():
 # data.sort_values(by=['date'], inplace=True)
 # data['date'] = data['date'].apply(lambda x:str(x).replace('.','-'))
 
-def resuce_send():
+def rescue_send():
     data = pd.read_excel('./utils/data/rescue_all.xlsx')
     data.sort_values(by=['date'], inplace=True)
     data['date'] = data['date'].apply(lambda x:str(x).replace('.','-'))
@@ -220,6 +223,33 @@ def resuce_send():
     Rescue.objects.bulk_create(rescue_list)
     print('회생법인 업로드')
 
+def recommender_send():
+    data = pd.read_csv('./utils/data/db.csv', encoding='cp949', engine='python')
+    recommender_list = []
+    for i in range(data.shape[0]):
+        company = data.loc[i,'company']
+        big_predict1 = data.loc[i,'big_predict1']
+        big_predict2 = data.loc[i,'big_predict2']
+        predicted_label1 = data.loc[i,'predicted_label1']
+        predicted_label2 = data.loc[i,'predicted_label2']
+        predicted_label3 = data.loc[i,'predicted_label3']
+        establish = data.loc[i,'establish']
+        invest = data.loc[i, 'invest']
+        tips = data.loc[i,'tips']
+        total = data.loc[i,'total']
+        patent = data.loc[i,'patent']
+        status = data.loc[i,'status']
+        token = data.loc[i,'token']
+        lable = data.loc[i,'lable']
+        recommender_obj = Recommender(company=company,big_predict1=big_predict1,\
+                                      big_predict2=big_predict2, predicted_label1=predicted_label1,\
+                                      predicted_label2=predicted_label2, predicted_label3=predicted_label3,\
+                                      establish=establish, invest=invest, tips=tips, total=total, patent=patent,\
+                                      status=status, token=token, lable=lable)
+        recommender_list.append(recommender_obj)
+    Recommender.objects.bulk_create(recommender_list)
+    print('추천데이터 업로드')
+
 
 if __name__ == "__main__":
     dart_send()
@@ -228,4 +258,5 @@ if __name__ == "__main__":
     main_company_send()
     portfolio_send()
     prof_send()
-    resuce_send()
+    rescue_send()
+    recommender_send()

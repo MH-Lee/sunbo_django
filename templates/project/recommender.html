@@ -1,0 +1,20 @@
+{% extends "project/_base.html" %}
+{% load static from staticfiles %}
+{% block subcss %}
+
+{% endblock %}
+{% block title %}스타트업 추천시스템 <small><i>beta</i></small>{% endblock %}
+{% block subcontent %}
+<input class="form-control mr-sm-2" id="reco_input" name="q" type="search" placeholder="Search" aria-label="Search">
+<button class="btn btn-primary" id="reco_button" type="submit">search</button>
+
+<input id="search_input" type="search" />
+<button id="search_button" type="submit"><i class="fa fa-search"></i></button>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+  
+</script>
+{% endblock %}

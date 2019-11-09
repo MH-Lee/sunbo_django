@@ -10,6 +10,7 @@ application = get_wsgi_application()
 ### scripts ###
 from utils.cleaner import Cleaner
 from utils.datasend import *
+
 from onspace.settings import INSTALLED_APPS, BASE_DIR
 
 proj_path = BASE_DIR
@@ -28,7 +29,7 @@ if sys.argv[1] == 'cleanmigrations':
 
 elif sys.argv[1] == 'datasend':
     # dart_send()
-    resuce_send()
+    # resuce_send()
     print('information complete')
     # invest_news_send()
     # portfolio_send()
