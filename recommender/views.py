@@ -16,17 +16,19 @@ from ast import literal_eval
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 from collections import namedtuple
 import os
+import warnings
+warnings.filterwarnings("ignore")
 
-obj = Recommender.objects.all()
-final_list =  pd.DataFrame(list(obj.values()))
-final_list['token'] = final_list['token'].apply(lambda x:literal_eval(x))
-middle = final_list[(final_list['establish'] <= 6)& (final_list['establish'] >= 4)].reset_index(drop=True)
-prime  = final_list[final_list['establish'] < 4].reset_index(drop=True)
-print(os.getcwd())
 model_name = './recommender/models/Doc2vec1.model'
 doc_vectorizer = Doc2Vec.load(model_name)
 
+
 def recommend(target, doc_vectorizer):
+    obj = Recommender.objects.all()
+    final_list =  pd.DataFrame(list(obj.values()))
+    final_list['token'] = final_list['token'].apply(lambda x:literal_eval(x))
+    middle = final_list[(final_list['establish'] <= 6)& (final_list['establish'] >= 4)].reset_index(drop=True)
+    prime  = final_list[final_list['establish'] < 4].reset_index(drop=True)
     TaggedDocument = namedtuple('TaggedDocument', 'words tags')
     tagged_docs = [TaggedDocument(d, c) for d, c in final_list[['token', 'lable']].values]
     X = [doc_vectorizer.infer_vector(doc.words) for doc in tagged_docs]
@@ -49,27 +51,21 @@ def recommend(target, doc_vectorizer):
     ss['normal_patent']   = minmax_scale(ss['patent'])
     ss['weight'] = ss['normal_total']+ ss['normal_similarity'] + ss['tips'] + ss['normal_patent'] + ss['tips']
     recomend_result = ss.sort_values(["weight"], ascending=[False]).reset_index(drop=True)
-    return recomend_result[0:5][['company','weight']]
+    return recomend_result[0:10][['company','weight']], category
 
 # Create your views here.
 def introduction(request):
     return render(request, './project/introduction.html')
 
 def network(request):
-    return render(request, './project/networks.html')
-#
-# @api_view(['POST'])
-# def recommender_view(request):
-#     print(request)
-#     if request.method == 'POST':
-#         target = request.data['content']
-#         print(target)
-#         recomend_result = recommend(target)
-#         json_records = recomend_result.to_json(orient='records')
-#     return Response(json_records, content_type='application/json')
+    json_data=open('./recommender/data/network.json').read()
+    json_data = {"data": [json.loads(json_data)]}
+    return render(request, './project/networks.html', context=json_data)
 
+def recommender(request):
+    return render(request, './project/recommender.html')
 
-class RecommenderView(generics.ListAPIView):
+class RecommenderAPIView(generics.ListAPIView):
     queryset = Result.objects.all()
     serializer_class = ResultSerializer
 
@@ -79,14 +75,16 @@ class RecommenderView(generics.ListAPIView):
         if serializer.is_valid(raise_exception=True):
             target = serializer.data['target']
             try:
-                recomend_result = recommend(target, doc_vectorizer)
+                recomend_result, category = recommend(target, doc_vectorizer)
                 result_list = recomend_result.to_dict('records')
                 result = {
-                    'result':result_list
+                    'result':result_list,
+                    'category':category
                 }
             except IndexError:
                 result_list = ["회사이름이 없습니다."]
                 result = {
-                    'result':result_list
+                    'result':result_list,
+                    'category': "회사이름이 없습니다."
                 }
         return Response(result, status=200)
