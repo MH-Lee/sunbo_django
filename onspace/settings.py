@@ -42,8 +42,9 @@ DEBUG = True
 testing = True
 ALLOWED_HOSTS = [
     'localhost',
-    'ec2-34-238-118-92.compute-1.amazonaws.com',
-    '127.0.0.1'
+    'ec2-52-70-132-159.compute-1.amazonaws.com',
+    '127.0.0.1',
+    '52.70.132.159'
 ]
 
 
@@ -170,11 +171,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static-dist/')
+STATIC_URL = '/static-dist/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/'),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static-dist/')
 
 AUTH_USER_MODEL = 'accounts.User'
 
