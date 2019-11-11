@@ -39,12 +39,12 @@ SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-testing = True
+# testing = True
 ALLOWED_HOSTS = [
     'localhost',
-    'ec2-52-70-132-159.compute-1.amazonaws.com',
+    'ec2-3-94-210-168.compute-1.amazonaws.com',
     '127.0.0.1',
-    '52.70.132.159'
+    '3.94.210.168'
 ]
 
 
@@ -112,26 +112,13 @@ REST_FRAMEWORK = {
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-if testing == True:
-    print('USING SQLITE3, NOT PRODUCTION')
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+print('USING SQLITE3, NOT PRODUCTION')
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-else:
-    print('USING MariaDB, PRODUCTION')
-    DATABASES = {
-        'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sunbo',
-        'USER':'root',
-        'PASSWORD':'1q2w3e4r',
-        'HOST':'localhost',
-        'PORT':3306,
-        }
-    }
+}
 
 
 
