@@ -71,7 +71,7 @@
 .subcontainer-3 > .first-img{
     width: 50%;
     height: 20rem;
-    background: url('../img/recommender.png') center no-repeat;
+    background: url('../img/recommender.jpg') center no-repeat;
     background-size: cover;
     /* background-color: blue; */
 }

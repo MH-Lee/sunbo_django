@@ -18,6 +18,7 @@ class UserLoginView(LoginView):           # 로그인
 
 def register(request):
     if request.method == 'POST':
+        print(request.POST['password'] == request.POST['confirm_password'])
         user_form = RegisterForm(request.POST)
         if user_form.is_valid():
             user = user_form.save(commit=False)
