@@ -8,16 +8,15 @@ import requests
 import gspread, json
 import pandas as pd
 
-scope = ['https://spreadsheets.google.com/feeds',
-         'https://www.googleapis.com/auth/drive']
-json_key='./utils/investanalytics-79366f3c1873.json'
-credentials = ServiceAccountCredentials.from_json_keyfile_name(json_key, scope)
-url = 'https://docs.google.com/spreadsheets/d/14azI7dieHLWipvyy5-JO2kf2xl_skpUKhq6So0uIkgU/edit?usp=drive_web&ouid=100610050510801476562'
-gc = gspread.authorize(credentials).open_by_url(url)
-wks = gc.get_worksheet(0)
 
-# @shared_task
 def update_data():
+    scope = ['https://spreadsheets.google.com/feeds',
+            'https://www.googleapis.com/auth/drive']
+    json_key='./utils/investanalytics-79366f3c1873.json'
+    credentials = ServiceAccountCredentials.from_json_keyfile_name(json_key, scope)
+    url = 'https://docs.google.com/spreadsheets/d/14azI7dieHLWipvyy5-JO2kf2xl_skpUKhq6So0uIkgU/edit?usp=drive_web&ouid=100610050510801476562'
+    gc = gspread.authorize(credentials).open_by_url(url)
+    wks = gc.get_worksheet(0)
     dfb_df = pd.DataFrame(wks.get_all_records())
     dfb_df['date'] = dfb_df['작성 일자 Date'].apply(lambda x: datetime(*tuple(map(int, x.replace(' ','').split('.')))))
     dfb_df.columns
@@ -85,3 +84,8 @@ def update_data():
             uc_obj_new.save()
             DealFlowBox.objects.bulk_create(dfb_list_new)
             print("upload complete")
+
+# @shared_task
+# def dealflowbox_update():
+#     update_data()
+#     return True

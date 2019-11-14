@@ -42,8 +42,8 @@ DEBUG = True
 # testing = True
 ALLOWED_HOSTS = [
     'localhost',
-    'ec2-3-94-210-168.compute-1.amazonaws.com',
     '127.0.0.1',
+    'ec2-3-94-210-168.compute-1.amazonaws.com',
     '3.94.210.168'
 ]
 
@@ -67,7 +67,8 @@ INSTALLED_APPS += [
     'information',
     'news',
     'dealflowbox',
-    'recommender'
+    'recommender',
+    'sslserver'
 ]
 
 MIDDLEWARE = [
