@@ -7,6 +7,7 @@ class InvestNews(models.Model):
     date = models.CharField(max_length=10, verbose_name="날짜")
     news_title = models.CharField(max_length=200, verbose_name="뉴스제목")
     news_url = models.CharField(max_length=300, verbose_name="뉴스URL")
+    company_name = models.CharField(max_length=100, verbose_name="기업명", null=True, blank=True)
     writer = models.ForeignKey(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE,
                                 verbose_name='작성자')
