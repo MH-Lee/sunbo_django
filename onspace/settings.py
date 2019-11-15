@@ -67,8 +67,7 @@ INSTALLED_APPS += [
     'information',
     'news',
     'dealflowbox',
-    'recommender',
-    'sslserver'
+    'recommender'
 ]
 
 MIDDLEWARE = [

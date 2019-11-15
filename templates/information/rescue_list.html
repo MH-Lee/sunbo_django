@@ -67,7 +67,7 @@
           <td class="center">{{ rescue.case_num }}</td>
           <td class="center">{{ rescue.company_name }}</td>
           <td class="sm-col">{{ rescue.date }}</td>
-          <td><a href="/information/rescue_detail/{{ rescue.id }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ rescue.subject }}</a></td>
+          <td><a href="/information/rescue_detail/{{ rescue.id }}">{{ rescue.subject }}</a></td>
           <td>{{ rescue.category }}</td>
           {% if rescue.news_url == 'None' %}
           <td>{{ rescue.news_title }}</td>
