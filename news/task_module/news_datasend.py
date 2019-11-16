@@ -38,12 +38,12 @@ class DataProcessingSend:
     def __init__(self):
         self.path = '/home/ubuntu/sunbo_django/recommender/models/'
         self.path2 = '/home/ubuntu/sunbo_django/news/task_module'
-        self.ko_stopwords = pd.read_csv(self.path2 + '/nlp_material/korean_stopwords.txt')
-        self.token_stops = pd.read_csv(self.path2 + '/nlp_material/token_stopwords.csv', engine='python', encoding='cp949')['stopwords'].tolist()
+        self.ko_stopwords = pd.read_csv(self.path2 + '/nlp_data/korean_stopwords.txt')
+        self.token_stops = pd.read_csv(self.path2 + '/nlp_data/token_stopwords.csv', engine='python', encoding='cp949')['stopwords'].tolist()
         self.doc_vectorizer = Doc2Vec.load(self.path + 'Doc2vec1.model')
-        self.doc_set = pd.read_excel(self.path2 + '/nlp_material/doc_set.xlsx')
+        self.doc_set = pd.read_excel(self.path2 + '/nlp_data/doc_set.xlsx')
         self.doc_set['token'] = self.doc_set['token'].apply(lambda x: x.replace("['","").replace("']","").split("', '"))
-        # self.new_small = pd.read_excel('./nlp_material/new_small_class.xlsx')
+        # self.new_small = pd.read_excel('./nlp_data/new_small_class.xlsx')
         self.mlp_clf = joblib.load(self.path2 + '/nlp_material/mlp_clf.sav')
         self.mlp_clf2 = joblib.load(self.path2 + '/nlp_material/mlp_clf2.sav')
         self.Naver = NaverNewsCrawler()

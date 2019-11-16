@@ -73,10 +73,9 @@ def dart_send():
         news_url = str(data1.iloc[i,6])
         if news_url == 'nan':
             news_url = None
-        writer = User.objects.get(username='admin')
         dart_obj = Dart(company_name=company_name, ticker=ticker,\
                         date=date, another_name=another_name, contents=contents,\
-                        news_title=news_title, news_url=news_url, writer=writer)
+                        news_title=news_title, news_url=news_url)
         dart_list.append(dart_obj)
     Dart.objects.bulk_create(dart_list)
 
@@ -91,9 +90,8 @@ def invest_news_send():
         date =  data.iloc[i,2].strftime('%Y-%m-%d')
         news_title = data.iloc[i,1]
         news_url = data.iloc[i,3]
-        writer = User.objects.get(username='admin')
         invest_obj = InvestNews(media=media, date=date, news_title=news_title,\
-                                news_url=news_url, writer=writer)
+                                news_url=news_url)
         invest_list.append(invest_obj)
     InvestNews.objects.bulk_create(invest_list)
     print('invest_news 업로드')
@@ -112,9 +110,8 @@ def LP_company_send():
         date =  data.iloc[i,4].strftime('%Y-%m-%d')
         print(date)
         news_url = data.iloc[i,5]
-        writer = User.objects.get(username='admin')
         lpc_obj = LPCompany(category=category, company_name=company_name, media=media, date=date,\
-                                news_title=news_title, news_url=news_url, writer=writer)
+                                news_title=news_title, news_url=news_url)
         lpc_list.append(lpc_obj)
     LPCompany.objects.bulk_create(lpc_list)
     print('LP기업 업로드')
@@ -132,9 +129,8 @@ def main_company_send():
         media = data.iloc[i,3]
         date =  data.iloc[i,4].strftime('%Y-%m-%d')
         news_url = data.iloc[i,5]
-        writer = User.objects.get(username='admin')
         main_obj = MainCompany(category=category, company_name=company_name, media=media, date=date,\
-                                news_title=news_title, news_url=news_url, writer=writer)
+                                news_title=news_title, news_url=news_url)
         main_list.append(main_obj)
     MainCompany.objects.bulk_create(main_list)
     print('Main기업 업로드')
@@ -152,9 +148,8 @@ def portfolio_send():
         media = data.iloc[i,3]
         date =  data.iloc[i,4].strftime('%Y-%m-%d')
         news_url = data.iloc[i,5]
-        writer = User.objects.get(username='admin')
         port_obj = Portfolio(category=category, company_name=company_name, media=media, date=date,\
-                                news_title=news_title, news_url=news_url, writer=writer)
+                                news_title=news_title, news_url=news_url)
         port_list.append(port_obj)
     Portfolio.objects.bulk_create(port_list)
     print('포트폴리오 업로드')
@@ -185,9 +180,9 @@ def prof_send():
         small_class_1 = data.iloc[i,3]
         small_class_2 = data.iloc[i,4]
         news_url = data.iloc[i,5]
-        writer = User.objects.get(username='admin')
+        # writer = User.objects.get(username='admin')
         prof_obj = Professor(media=media, date=date, small_class_1=small_class_1, small_class_2=small_class_2,\
-                            news_title=news_title, news_url=news_url, writer=writer)
+                            news_title=news_title, news_url=news_url)
         prof_list.append(prof_obj)
     Professor.objects.bulk_create(prof_list)
     print('교수개발 업로드')
@@ -203,9 +198,7 @@ def rescue_send():
     data['date'] = data['date'].apply(lambda x:str(x).replace('.','-'))
     rescue_list = []
     for i in range(data.shape[0]):
-        date = datetime.datetime.strptime(str(data.iloc[i,4]), "%Y-%m-%d %H:%M:%S").date().strftime("%Y-%m-%d")
-        if i % 100 == 0:
-            print(date)
+        date = datetime.datetime.strptime(str(data.iloc[i,4]), "%Y-%m-%d").date().strftime("%Y-%m-%d")
         area = data.iloc[i,0]
         case_num = data.iloc[i,1]
         company_name = data.iloc[i,2]
@@ -215,10 +208,14 @@ def rescue_send():
         contents = data.iloc[i,10]
         news_title = data.iloc[i,12]
         news_url = data.iloc[i,11]
-        writer = User.objects.get(username='admin')
+        address = data.iloc[i,13]
+        if i % 200 == 0:
+            print(date)
+            print(address)
+        # writer = User.objects.get(username='admin')
         rescue_obj = Rescue(date=date, area=area, case_num=case_num, company_name=company_name, \
                             court=court, subject=subject, category=category, contents=contents,\
-                            news_title=news_title, news_url=news_url, writer=writer)
+                            news_title=news_title, news_url=news_url, address=address)
         rescue_list.append(rescue_obj)
     Rescue.objects.bulk_create(rescue_list)
     print('회생법인 업로드')
@@ -252,11 +249,12 @@ def recommender_send():
 
 
 if __name__ == "__main__":
-    # dart_send()
-    # invest_news_send()
-    # LP_company_send()
-    # main_company_send()
-    # portfolio_send()
-    # prof_send()
-    # rescue_send()
+    print(os.getcwd())
+    dart_send()
+    invest_news_send()
+    LP_company_send()
+    main_company_send()
+    portfolio_send()
+    prof_send()
+    rescue_send()
     recommender_send()

@@ -8,7 +8,7 @@
 
 {% block table %}
 <div class="col-md-12 justify-content-center">
-    작성자:&nbsp; {{ rescue.writer }} &nbsp; 작성일:&nbsp; {{ rescue.registered_dttm|date:"Y-m-d H:i" }}
+    작성일:&nbsp; {{ rescue.registered_dttm|date:"Y-m-d H:i" }}
 </div>  
 <div class="col-md-12">
     {{ rescue.contents|safe }}

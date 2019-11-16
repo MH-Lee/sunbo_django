@@ -5,11 +5,11 @@ from information.models import Dart, Rescue
 class DartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dart
-        fields = __all__
+        fields = '__all__'
 
 class RescueSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Dart
+        model = Rescue
         fields = ('id',
                   'date',
                   'area',

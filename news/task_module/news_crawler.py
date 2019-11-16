@@ -22,8 +22,8 @@ class NaverNewsCrawler:
         self.start_date = date.today() + timedelta(weeks=-1)
         self.start_date = self.start_date.strftime("%Y.%m.%d")
         self.naver_date = '&pd=3&ds=' + self.start_date+'&de=' + self.end_date
-        self.company_list = pd.read_excel(path + '/nlp_material/company_list.xlsx')
-        self.stopwords = pd.read_excel(path + '/nlp_material/crawling_stopwords.xlsx')
+        self.company_list = pd.read_excel(path + '/nlp_data/company_list.xlsx')
+        self.stopwords = pd.read_excel(path + '/nlp_data/crawling_stopwords.xlsx')
         print("news crawler start!")
 
     def get_total_page(self, search_keyword,period,search_type):

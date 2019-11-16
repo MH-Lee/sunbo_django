@@ -11,9 +11,6 @@ class Dart(models.Model):
     contents_cat = models.CharField(max_length=128, verbose_name="문서종류")
     news_title = models.CharField(max_length=200, verbose_name="관련뉴스기사", null=True)
     news_url = models.CharField(max_length=500, verbose_name="관련뉴스 url", null=True)
-    writer = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                on_delete=models.CASCADE,
-                                verbose_name='작성자')
     registered_dttm = models.DateTimeField(auto_now_add=True,
                                             verbose_name='등록시간')
 
@@ -36,11 +33,9 @@ class Rescue(models.Model):
     subject = models.CharField(max_length=50, verbose_name="문서내용")
     category = models.CharField(max_length=300, verbose_name="카테고리")
     contents = models.TextField(verbose_name='판결문')
+    address = models.CharField(max_length=200, verbose_name="회생기업주소", null=True)
     news_title = models.CharField(max_length=200, verbose_name="관련뉴스기사", null=True)
     news_url = models.CharField(max_length=500, verbose_name="관련뉴스 url", null=True)
-    writer = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                on_delete=models.CASCADE,
-                                verbose_name='작성자')
     registered_dttm = models.DateTimeField(auto_now_add=True,
                                             verbose_name='등록시간')
 

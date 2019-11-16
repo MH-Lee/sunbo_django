@@ -9,9 +9,6 @@ class InvestNews(models.Model):
     news_url = models.CharField(max_length=300, verbose_name="뉴스URL")
     company_name = models.CharField(max_length=100, verbose_name="기업명", null=True, blank=True)
     company_address = models.CharField(max_length=128, verbose_name="기업주소", null=True, blank=True)
-    writer = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                on_delete=models.CASCADE,
-                                verbose_name='작성자')
     registered_dttm = models.DateTimeField(auto_now_add=True,
                                             verbose_name='등록시간')
 
@@ -32,9 +29,6 @@ class LPCompany(models.Model):
     news_title = models.CharField(max_length=200, verbose_name="뉴스제목")
     news_url = models.CharField(max_length=300, verbose_name="뉴스URL")
     media = models.CharField(max_length=20, verbose_name="신문사")
-    writer = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                on_delete=models.CASCADE,
-                                verbose_name='작성자')
     registered_dttm = models.DateTimeField(auto_now_add=True,
                                             verbose_name='등록시간')
 
@@ -54,9 +48,6 @@ class MainCompany(models.Model):
     news_title = models.CharField(max_length=300, verbose_name="뉴스제목")
     news_url = models.CharField(max_length=300, verbose_name="뉴스URL")
     media = models.CharField(max_length=20, verbose_name="신문사")
-    writer = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                on_delete=models.CASCADE,
-                                verbose_name='작성자')
     registered_dttm = models.DateTimeField(auto_now_add=True,
                                             verbose_name='등록시간')
 
@@ -77,9 +68,6 @@ class Professor(models.Model):
     news_url = models.CharField(max_length=300, verbose_name="뉴스URL")
     small_class_1 = models.CharField(max_length=100, verbose_name="기술소분류1", null=True)
     small_class_2 = models.CharField(max_length=100, verbose_name="기술소분류2",null=True)
-    writer = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                on_delete=models.CASCADE,
-                                verbose_name='작성자')
     registered_dttm = models.DateTimeField(auto_now_add=True,
                                             verbose_name='등록시간')
 
@@ -99,9 +87,6 @@ class Portfolio(models.Model):
     media = models.CharField(max_length=20, verbose_name="신문사")
     news_title = models.CharField(max_length=200, verbose_name="뉴스제목")
     news_url = models.CharField(max_length=300, verbose_name="뉴스URL")
-    writer = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                on_delete=models.CASCADE,
-                                verbose_name='작성자')
     registered_dttm = models.DateTimeField(auto_now_add=True,
                                             verbose_name='등록시간')
 
