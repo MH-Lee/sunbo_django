@@ -66,17 +66,17 @@ class DartUpdate:
             if len(my_titles_sub)>0:
                 for title in my_titles_sub:
                     if title.get('href') != '#':
-                        html = '<a href = {}> {} </a> '.format(title.get('href'),title.get('title'))
+                        # html = '<a href = {}> {} </a> '.format(title.get('href'),title.get('title'))
                         naver_news_address.append({'공시대상회사': final_result['공시대상회사'][i],
                                                    '타법인명': final_result['타법인명'][i],
-                                                   '관련뉴스기사': html}) #url 가져오기
+                                                   '뉴스기사제목': title.get('href'), '뉴스기사Url': title.get('href')}) #url 가져오기
                     if len(naver_news_address) > 0 :
                         break
             else:
-                html = 'None'
+                # html = 'None'
                 naver_news_address.append({'공시대상회사': final_result['공시대상회사'][i],
                                            '타법인명': final_result['타법인명'][i],
-                                           '관련뉴스기사': html}) #url 가져오기
+                                           '뉴스기사제목': 'None', '뉴스기사Url': 'None'}) #url 가져오기
         return naver_news_address
 
     def make_dart_data(self):
@@ -115,11 +115,12 @@ class DartUpdate:
                 tag_list = xmlsoup_another.select('tbody tr td')
                 index = [idx for idx, s in enumerate(tag_list) if '회사명(국적)' in s][0]
                 d_comp.append(tag_list[index+1].text.replace(' 주식회사',''))
-        info_list['타법인명']=d_comp
-        info_list['문서내용']=url_list
-        info_list.drop(['rpt_nm', 'rcp_no', 'flr_nm', '법인구분'], axis=1)
-        final_data=get_news_content_keyword(info_list)
+        info_list['타법인명'] = absd_comp
+        info_list['문서내용'] = url_list
+        info_list.drop(['rcp_no', 'flr_nm', '법인구분'], axis=1, inplace=True)
+        final_data=self.get_news_content_keyword(info_list)
         final_data=pd.DataFrame(final_data)
-        info_list['관련뉴스기사']=final_data['관련뉴스기사']
-        info_list=info_list.fillna('None') #na로 들어가면 구글스프레드시트 업로드시 에러생기므로 'None'으로 항상 바꿔주기
+        info_list['뉴스기사제목'] = final_data['뉴스기사제목']
+        info_list['뉴스기사Url'] = final_data['뉴스기사Url']
+        info_list.fillna('None', inplace=True) #na로 들어가면 구글스프레드시트 업로드시 에러생기므로 'None'으로 항상 바꿔주기
         return info_list
