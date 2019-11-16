@@ -7,3 +7,4 @@ recommender/models/
 venv.bat
 secrets.json
 static-dist/
+news/task_module/nlp_material/
