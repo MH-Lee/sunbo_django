@@ -43,10 +43,11 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'ec2-3-94-210-168.compute-1.amazonaws.com',
-    '3.94.210.168'
+    '54.196.184.114',
+    'ec2-54-196-184-114.compute-1.amazonaws.com'
 ]
-
+# 'ec2-3-94-210-168.compute-1.amazonaws.com',
+# '3.94.210.168'
 
 # Application definition
 
@@ -67,7 +68,10 @@ INSTALLED_APPS += [
     'information',
     'news',
     'dealflowbox',
-    'recommender'
+    'recommender',
+    # celery + celerybeat
+    'django_celery_beat',
+    'django_celery_results'
 ]
 
 MIDDLEWARE = [
@@ -159,9 +163,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static-dist/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static/'),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static/'),
+# ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static-dist/')
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -188,3 +192,15 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+amqp_user = 'admin'
+amqp_pass = 'admin123'
+amqp_location = 'rabbit'
+amqp_url = 'amqp://{}:{}@{}:5672//'.format(amqp_user, amqp_pass, amqp_location)
+
+CELERY_BROKER_URL = amqp_url
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE

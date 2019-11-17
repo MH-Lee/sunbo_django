@@ -142,13 +142,17 @@ class NaverNewsCrawler:
             # result_df = self.remove_dupli(keyword_result1)
             Professor_Development = self.remove_dupli(keyword_result1)
             # print(Professor_Development)
+            Professor_Development['date'] = Professor_Development['date'].apply(lambda x: x.replace('/', '-'))
+            
             result_df = Professor_Development[~Professor_Development.title.str.contains('|'.join(list(self.stopwords[self.stopwords['type']=='PD']['stopwords'])))].reset_index(drop=True)
         elif mode == 'invest':
             keyword_result2 = self.get_news_total('투자 유치', self.naver_date, '&field=1')
             Investment_attraction = self.remove_dupli(keyword_result2)
+            Investment_attraction['date'] = Investment_attraction['date'].apply(lambda x: x.replace('/', '-'))
             result_df = Investment_attraction[~Investment_attraction.title.str.contains('|'.join(list(self.stopwords[self.stopwords['type']=='IA']['stopwords'])))].reset_index(drop=True)
         else:
             company_news = self.get_news_company(self.naver_date, '&field=0')
             company_news2 = self.remove_dupli(company_news)
+            company_news2['date'] = company_news2['date'].apply(lambda x: x.replace('/', '-'))
             result_df = company_news2[~company_news2.title.str.contains('|'.join(list(self.stopwords[self.stopwords['type']=='CN']['stopwords'])))].reset_index(drop=True)
         return result_df

@@ -27,9 +27,10 @@ from gensim.summarization import keywords
 from newspaper import Article
 from newspaper import fulltext
 from news.task_module.news_crawler import NaverNewsCrawler
-from accounts.models import User
 
-class DataProcessingSend:
+# from news.task_module.professor import ProfessorNews
+
+class ProfessorNews:
     def __init__(self):
         self.path = '/home/ubuntu/sunbo_django/recommender/models/'
         self.path2 = '/home/ubuntu/sunbo_django/news/task_module'
@@ -45,7 +46,6 @@ class DataProcessingSend:
         if os.path.exists(self.path2+ '/backup_data/') == False:
             os.mkdir(self.path2 + '/backup_data/')
         print("datasend start!")
-
 
     def noun_corpus(self, sents):
         noun_extractor = NewsNounExtractor()
@@ -136,10 +136,10 @@ class DataProcessingSend:
             temp = big[i]
             s_temp = list (set(self.doc_set[self.doc_set['new_class']==temp].new_small_class))
             category_dic[temp]=s_temp
-        return category_dic, tagged_professor_docs, docs, professor
+        return category_dic, tagged_professor_docs, professor
 
     def professor_prediction(self):
-        category_dic, tagged_professor_docs, docs, professor = self.professor_news_zifslow()
+        category_dic, tagged_professor_docs, professor = self.professor_news_zifslow()
         X_professor = [self.doc_vectorizer.infer_vector(doc.words) for doc in tagged_professor_docs]
         # y_professor = [doc.tags for doc in tagged_professor_docs]
         y_professor_pred = self.mlp_clf.predict(X_professor)
@@ -183,22 +183,3 @@ class DataProcessingSend:
 
         professor_result = pd.DataFrame(second_result,columns=['date','title','predicted_label1','predicted_label2','link','press'])
         return professor_result
-
-
-    def data_send(self):
-        professor_last = self.professor_prediction()
-        print("back up data save")
-        professor_last.to_csv(self.path2 + "/backup_data/" + datetime.today().strftime("%Y%m%d")+ "_Professor_Development_naver.csv",  encoding = "utf-8-sig", header=True, index=False) 
-        company.to_csv(self.path2 + "/backup_data/" + datetime.today().strftime("%Y%m%d")+ "_company_naver.csv",  encoding = "utf-8-sig", header=True, index=False) 
-        invest.to_csv(self.path2 + "/backup_data/" + datetime.today().strftime("%Y%m%d")+ "_Investment_attraction_naver.csv",  encoding = "utf-8-sig", header=True, index=False)
-        print("DB send start")
-        return professor_last, port, lp, main, invest
-        # LPCompany
-        # MainCompany 
-        # InvestNews
-        # Professor
-        # Portfolio
-        # print("DB save")
-
-# dps = DataProcessingSend()
-# professor_last, port, lp, main, invest = dps.data_send()

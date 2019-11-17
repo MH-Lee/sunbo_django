@@ -8,3 +8,4 @@ venv.bat
 secrets.json
 static-dist/
 news/task_module/nlp_material/
+information/task_module/chromedriver.exe

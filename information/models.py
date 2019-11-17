@@ -33,6 +33,7 @@ class Rescue(models.Model):
     subject = models.CharField(max_length=50, verbose_name="문서내용")
     category = models.CharField(max_length=300, verbose_name="카테고리")
     contents = models.TextField(verbose_name='판결문')
+    ceo = models.CharField(max_length=30, verbose_name="ceoname", null=True)
     address = models.CharField(max_length=200, verbose_name="회생기업주소", null=True)
     news_title = models.CharField(max_length=200, verbose_name="관련뉴스기사", null=True)
     news_url = models.CharField(max_length=500, verbose_name="관련뉴스 url", null=True)

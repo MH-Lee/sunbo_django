@@ -26,6 +26,7 @@ class RescueCrawler:
         term = -1 * term
         self.end_date = date.today() + timedelta(weeks=term)
         self.end_date = self.end_date.strftime("%Y.%m.%d")
+        self.path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         self.rescue_url = 'http://safind.scourt.go.kr/sf/hpbigonggo/whp_gonggo.jsp?org_bub_nm=&amp;theme=#'
         self.naver_news = 'https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query='
         self.naver_news_content = 'https://search.naver.com/search.naver?&where=news&query={}&start=1&sort=sim&field=0&pd=6'
@@ -34,11 +35,12 @@ class RescueCrawler:
         self.options.add_argument('window-size=1920x1080')
         self.options.add_argument("disable-gpu")
         self.options.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36")
-        if os.path.exists('./backup/') == False:
-            os.mkdir('./backup')
-        if os.path.exists('./backup/rescue/') == False:
-            os.mkdir('./backup/rescue')
-        print("collect rescue case {} weeks ago".format(term))
+        if os.path.exists(self.path + '/task_module/backup/') == False:
+            print('backup 생성')
+            os.mkdir(self.path + '/task_module/backup')
+        if os.path.exists(self.path + '/task_module/backup/rescue/') == False:
+            os.mkdir(self.path + '/task_module/backup/rescue')
+        print("collect rescue case {} weeks ago".format(term), self.path)
 
     def get_content (self, driver,area,start_date,end_date) :
         final_result = pd.DataFrame()
@@ -76,7 +78,7 @@ class RescueCrawler:
                 j = j+1
                 if j == 11 :
                     i,j = 2,1
-            except NoSuchElementException as e:
+            except NoSuchElementException:
                 last_date = end_date
             else:
                 driver.implicitly_wait(3)
@@ -100,21 +102,21 @@ class RescueCrawler:
                         soup = BeautifulSoup(html, 'html.parser')
                         sub_info = soup.select('font > p')
                         if len(sub_info) == 2 :
-                            adress = sub_info[0].text
+                            address = sub_info[0].text
                             ceo = sub_info[1].text
                         elif len(sub_info) == 1:
-                            adress = sub_info[0].text
+                            address = sub_info[0].text
                             ceo = 'none'
                         else :
-                            adress = 'none'
+                            address = 'none'
                             ceo = 'none'
 
                         if(date < end_date):
                             last_date = date
                             break
                         else :
-                            info.append({'area':area,'case_num' : case_num,'court' : court,'company' :company,
-                                         'date':date ,'subject' :subject,'sub_info':sub_info,'html':soup})
+                            info.append({'area':area,'case_num' : case_num,'court' : court,'company' :company,\
+                                         'date':date ,'subject' :subject,'sub_info':sub_info,'html':soup, 'address', ''})
                             driver.switch_to_window(driver.window_handles[0])
                             k = k+1
         dataframe = pd.DataFrame(info)
@@ -191,11 +193,11 @@ class RescueCrawler:
                         df_new=df_new.reset_index(drop=True)
                         category.append(df_new[0])
                         detailed_info.append('None')
-            except AttributeError as e:
+            except AttributeError:
                 #print(e)
                 category.append('None')
                 detailed_info.append('None')
-            except IndexError as e:
+            except IndexError:
                 #print(i,e)
                 category.append('None')
                 detailed_info.append('None')
@@ -206,42 +208,53 @@ class RescueCrawler:
         rescue['detailed_info']=final_data['세부정보']
         return rescue
 
+    def catch_address(self, html):
+        try:
+            soup = BeautifulSoup(html, "html.parser")
+            addr = soup.select('p')[2].text.split('   ')[4].strip()
+        except TypeError:
+            # print(html)
+            addr = None
+        except IndexError:
+            # print(soup.select('p')[2])
+            addr = None
+        return addr
+
     def rescue_crawling(self):
         area_list = ['서울','의정부','인천','수원','춘천','대전','청주','대구','부산','울산','창원','광주','전주','제주']
         final_result = pd.DataFrame()
         for area in area_list:
-            driver = webdriver.Chrome('./chromedriver', options=self.options)
+            driver = webdriver.Chrome(r'/usr/lib/chromium-browser/chromedriver', options=self.options)
             driver.implicitly_wait(3)
             temp = self.get_content(driver, area, self.start_date, self.end_date)
             #driver.close()
             driver.quit()
             final_result = final_result.append(pd.DataFrame(data = temp), ignore_index=True)
 
-        adress = []
         ceo = []
         for i in range(len(final_result)):
             if len(final_result['sub_info'][i]) == 2 :
-                adress.append(re.sub('[\n\xa0]', '', final_result['sub_info'][i][0].text).strip())
                 ceo.append(re.sub('[\n\xa0]', '', final_result['sub_info'][i][1].text).strip())
             elif len(final_result['sub_info'][i]) == 1 :
-                adress.append(re.sub('[\n\xa0]', '', final_result['sub_info'][i][0].text).strip())
                 ceo.append('none')
             else:
-                adress.append('none')
                 ceo.append('none')
 
-        final_result['adress'] = adress
+        final_result['address'] = final_result['address'].apply(lambda x: str(x).split('   ')[4].strip())
         final_result['ceo'] = ceo
         del final_result['sub_info']
-
         news_result = self.get_news_content_keyword(final_result)
         rescue = pd.merge(pd.DataFrame(news_result),final_result,on='company',how='right').drop_duplicates().reset_index(drop=True)
         final_result = self.get_company_keyword(rescue)
         final_result = final_result.drop_duplicates(subset='case_num', keep="first").reset_index(drop=True)
         return final_result
 
-r = RescueCrawler()
-final_result = r.rescue_crawling()
-final_result.fillna('None', inplace=True)
-result_path = r'C:/Users/sunboangel/Desktop/인수인계자료/Part5. 자동화 인수인계 자료/auto_exe/'
-final_result.to_csv(result_path+datetime.today().strftime("%Y%m%d")+'_rescue_court.csv',  encoding = "utf-8-sig", header=True, index=False)
+
+# from information.task_module.rescue_crawler import RescueCrawler
+# r = RescueCrawler()
+# final_result = r.rescue_crawling()
+# final_result.fillna('None', inplace=True)
+# import os
+# path = os.getcwd()
+# from datetime import datetime
+# final_result.to_csv(path + '/information/task_module/backup/rescue/' + datetime.today().strftime("%Y%m%d")+'_rescue_court.csv',  encoding = "utf-8-sig", header=True, index=False)
