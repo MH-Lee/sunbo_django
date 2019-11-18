@@ -115,7 +115,7 @@ class DartUpdate:
                 tag_list = xmlsoup_another.select('tbody tr td')
                 index = [idx for idx, s in enumerate(tag_list) if '회사명(국적)' in s][0]
                 d_comp.append(tag_list[index+1].text.replace(' 주식회사',''))
-        info_list['타법인명'] = absd_comp
+        info_list['타법인명'] = d_comp
         info_list['문서내용'] = url_list
         info_list.drop(['rcp_no', 'flr_nm', '법인구분'], axis=1, inplace=True)
         final_data=self.get_news_content_keyword(info_list)

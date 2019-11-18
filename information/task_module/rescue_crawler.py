@@ -19,6 +19,26 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException,StaleElementReferenceException
 import pandas as pd
 
+js = """
+<script language="javascript" type="text/javascript">
+&lt;!--
+function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+  if (init==true) with (navigator) {if ((appName=="Netscape")&amp;&amp;(parseInt(appVersion)==4)) {
+    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+MM_reloadPage(true);
+//--&gt;
+</script>
+<link href="/wbi.css" rel="stylesheet" type="text/css"/>
+"""
+caption = """
+<caption="특별조사기일 style="display:inline !important; visibility:visible !important; width:1px; height:1px; font-size:0px; overflow:hidden; line-height:0; " 공고"="" 관계인집회기일="" 및="" 제2,3회="">
+</caption="특별조사기일><table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+"""
+str1 = """<td height="33" style="padding-left:20px"><img alt="로고" src="/img/hpgonggo/logo_scourt.gif"/></td>"""
+str2 = """<td height="27"><img alt="종료" border="0" onclick="window.close();" src="/img/hpgonggo/btn_close.gif" style="cursor:hand"/><img alt="공백" height="10" src="/img/hpgonggo/blank.gif" width="10"/></td>"""
+
 class RescueCrawler:
     def __init__(self, term=1):
         self.start_date = datetime.today() - timedelta(1)
@@ -103,20 +123,20 @@ class RescueCrawler:
                         sub_info = soup.select('font > p')
                         if len(sub_info) == 2 :
                             address = sub_info[0].text
-                            ceo = sub_info[1].text
+                            # ceo = sub_info[1].text
                         elif len(sub_info) == 1:
                             address = sub_info[0].text
-                            ceo = 'none'
+                            # ceo = 'none'
                         else :
                             address = 'none'
-                            ceo = 'none'
+                            # ceo = 'none'
 
                         if(date < end_date):
                             last_date = date
                             break
                         else :
                             info.append({'area':area,'case_num' : case_num,'court' : court,'company' :company,\
-                                         'date':date ,'subject' :subject,'sub_info':sub_info,'html':soup, 'address', ''})
+                                         'date':date ,'subject' :subject,'sub_info':sub_info,'html':soup, 'address':address})
                             driver.switch_to_window(driver.window_handles[0])
                             k = k+1
         dataframe = pd.DataFrame(info)
@@ -208,17 +228,16 @@ class RescueCrawler:
         rescue['detailed_info']=final_data['세부정보']
         return rescue
 
-    def catch_address(self, html):
-        try:
-            soup = BeautifulSoup(html, "html.parser")
-            addr = soup.select('p')[2].text.split('   ')[4].strip()
-        except TypeError:
-            # print(html)
-            addr = None
-        except IndexError:
-            # print(soup.select('p')[2])
-            addr = None
-        return addr
+    def catch_address(self, address):
+        if address != 'none':
+            result = address.split('       ')[2]
+        else:
+            result = 'none'
+        return result
+
+    def html_refine(self, html):
+        result = str(html).replace(str1, "").replace(str2, "").replace(js, "").replace(caption,"")
+        return result
 
     def rescue_crawling(self):
         area_list = ['서울','의정부','인천','수원','춘천','대전','청주','대구','부산','울산','창원','광주','전주','제주']
@@ -240,7 +259,8 @@ class RescueCrawler:
             else:
                 ceo.append('none')
 
-        final_result['address'] = final_result['address'].apply(lambda x: str(x).split('   ')[4].strip())
+        final_result['address2'] = final_result['address'].apply(lambda x: self.catch_address(x))
+        final_result['html'] = final_result['html'].apply(lambda x:self.html_refine(x))
         final_result['ceo'] = ceo
         del final_result['sub_info']
         news_result = self.get_news_content_keyword(final_result)
