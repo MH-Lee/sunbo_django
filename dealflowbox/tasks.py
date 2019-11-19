@@ -1,4 +1,5 @@
-# from celery import shared_task
+from __future__ import absolute_import
+from celery import shared_task
 from datetime import datetime
 from oauth2client.service_account import ServiceAccountCredentials
 from .models import DealFlowBox, UpdateChecker
@@ -85,7 +86,7 @@ def update_data():
             DealFlowBox.objects.bulk_create(dfb_list_new)
             print("upload complete")
 
-# @shared_task
-# def dealflowbox_update():
-#     update_data()
-#     return True
+@shared_task
+def dealflowbox_update():
+    update_data()
+    return True

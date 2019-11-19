@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from celery import shared_task
 from news.task_module.professor import ProfessorNews
 from news.task_module.news_crawler import NaverNewsCrawler
@@ -55,6 +56,7 @@ def company_send(data):
 
 def prof_send(data):
     prof_list = []
+    start_time = time.time()
     for i in range(data.shape[0]):
         media = data.iloc[i,'press']
         news_title = data.loc[i,'title']
@@ -66,10 +68,12 @@ def prof_send(data):
                             news_title=news_title, news_url=news_url)
         prof_list.append(prof_obj)
     Professor.objects.bulk_create(prof_list)
+    end_time = time.time()
     print('교수개발 업로드')
+    return (end_time - start_time),  "Data request complete"
 
 @shared_task
-def professor_data_send(self):
+def professor_data_send():
     path = '/home/ubuntu/sunbo_django/news/task_module'
     start_time = time.time()
     prof = ProfessorNews()

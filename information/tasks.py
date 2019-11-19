@@ -1,8 +1,10 @@
+from __future__ import absolute_import
 from celery import shared_task
 from information.task_module.rescue_crawler import RescueCrawler
 from information.task_module.dart_crawler import DartUpdate
 from information.models import Rescue, Dart
 import os
+import time
 from datetime import datetime
 
 def rescue_send(data):
@@ -39,7 +41,7 @@ def dart_send(data):
         print(i)
         company_name = data.loc[i,'공시대상회사']
         ticker = data.loc[i,'회사코드']
-        date = datetime.datetime.strptime(str(data.loc[i,2]), "%Y%m%d").date().strftime("%Y-%m-%d")
+        date = datetime.strptime(str(data.loc[i,'공시접수일자']), "%Y%m%d").date().strftime("%Y-%m-%d")
         print(date)
         contents_cat = data.loc[i,'rpt_nm']
         another_name = data.loc[i,'타법인명']
@@ -59,18 +61,24 @@ def dart_send(data):
 
 @shared_task
 def rescue_data_send():
+    start_time = time.time()
     r = RescueCrawler()
     rescue_dart = r.rescue_crawling()
     rescue_dart.fillna('None', inplace=True)
     path = os.getcwd()
     rescue_dart.to_csv(path + '/information/task_module/backup/rescue/' + datetime.today().strftime("%Y%m%d")+'_rescue_court.csv',  encoding = "utf-8-sig", header=True, index=False)
     rescue_send(rescue_dart)
+    end_time = time.time()
+    return True, (end_time - start_time), "Data send complete"
 
 @shared_task
 def dart_data_send():
+    start_time = time.time()
     du = DartUpdate()
     dart_result = du.make_dart_data()
     dart_result.fillna('None', inplace=True)
     path = os.getcwd()
     dart_result.to_csv(path + '/information/task_module/backup/rescue/' + datetime.today().strftime("%Y%m%d")+'_dart.csv',  encoding = "utf-8-sig", header=True, index=False)
-    rescue_send(dart_result)
+    dart_send(dart_result)
+    end_time = time.time()
+    return True, (end_time - start_time),  "Data send complete"

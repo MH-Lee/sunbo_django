@@ -73,8 +73,8 @@ class ProfessorNews:
             # 숫자 및 특수문자 제거.
             t = re.sub('[\d\s0-9]',' ',str(i)).strip()
             t = re.sub('[=+,#/\?:^$.@*\"※~&%ㆍ·⌬◎◳▢▪!』․\\‘|\(\)\[\]\<\>`\'…》→’“”;●•]', ' ', t)
-            t = re.sub('\xad', ' ', t)
-            t = re.sub('\n', ' ', t)
+            t = re.sub(r'\xad', ' ', t)
+            t = re.sub(r'\n', ' ', t)
             t = re.sub('  ', ' ', t)
             t = re.sub('  ', ' ', t)
             t = re.sub('  ', ' ', t)
@@ -82,7 +82,7 @@ class ProfessorNews:
             worrd_list.append(t)
         df_corpus = self.noun_corpus(worrd_list)
         #stopwords 제거
-        stops = self.ko_stopwords
+        stops = list(self.ko_stopwords['stopwords'])
         docs=[]
         for i in range(len(df_corpus)):
             words=[]
@@ -94,9 +94,7 @@ class ProfessorNews:
 
     def make_professor_content(self):
         professor = self.Naver.naver_crawler_exe(mode='professor')
-        ko_stopwords=list(self.ko_stopwords['stopwords'])
         text=[]
-        keyword=[]
         for i in range(len(professor)):
             url = professor['link'][i]
             a = Article(url, language='ko')
@@ -109,7 +107,7 @@ class ProfessorNews:
 
     def professor_news_zifslow(self):
         professor = self.make_professor_content()
-        tokens = [ t for d in professor['token'] for t in d]
+        tokens = [t for d in professor['token'] for t in d]
         text = nltk.Text(tokens, name='NMSC')
         fdist = text.vocab()
         df_fdist = pd.DataFrame.from_dict(fdist, orient='index')
