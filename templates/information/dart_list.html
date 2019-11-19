@@ -1,5 +1,19 @@
 {% extends "information/_base.html" %}
-{% block title %}Dart 기업 공시 열람{% endblock %}
+{% block title %}
+Dart 기업 공시 열람 &nbsp;
+{% if request.user.is_superuser %}
+  <button type="submit" class="btn btn-primary" onclick="location.href='/information/dart_update'">업데이트</button>
+{% else %}
+{% endif %}
+
+&nbsp;
+
+{% if request.user.subscription %}
+  <button type="submit" class="btn btn-primary" onclick="location.href='/information/api/dart/'">API 보기</button>
+{% else %}
+{% endif %}
+
+{% endblock %}
 {% block search %}
 <form class="form-inline my-2 my-lg-0 justify-content-end"  method="GET" action="{% url 'dart_list' %}">
   {% csrf_token %}

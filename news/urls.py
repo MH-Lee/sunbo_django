@@ -7,4 +7,7 @@ urlpatterns = [
     path('portfolio/', views.portfolio_list, name='portfolio'),
     path('professor/', views.professor_list, name='professor'),
     path('investment_news/', views.investment_news_list, name='investment_news'),
+    # manual_update
+    path('professor_update/', views.professor_list, name='professor-update'),
+    path('company_update/', views.investment_news_list, name='company-update'),
 ]

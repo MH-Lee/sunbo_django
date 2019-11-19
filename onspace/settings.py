@@ -61,24 +61,18 @@ INSTALLED_APPS = [
     # Django Restframework (API Template)
     'rest_framework',
     # celery + celerybeat
-    'django_celery_beat',
-    'django_celery_results',
-    # onspace app
+    # 'django_celery_beat',
+    # 'django_celery_results',
+]
+
+INSTALLED_APPS += [
+    # Sunbo app
     'accounts',
     'information',
     'news',
     'dealflowbox',
-    'recommender'
+    'recommender',
 ]
-
-# INSTALLED_APPS += [
-#     # Sunbo app
-#     'accounts',
-#     'information',
-#     'news',
-#     'dealflowbox',
-#     'recommender',
-# ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -204,14 +198,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # else:
 #     amqp_location = 'rabbit'
 
-amqp_user = 'sunboangel'
-amqp_pass = '1q2w3e4r!'
-amqp_url = 'amqp://{}:{}@localhost:5672//'.format(amqp_user, amqp_pass)
+# amqp_user = 'sunboangel'
+# amqp_pass = '1q2w3e4r!'
+# amqp_url = 'amqp://{}:{}@localhost:5672//'.format(amqp_user, amqp_pass)
 
-CELERY_BROKER_URL = amqp_url
-CELERY_RESULT_BACKEND = 'django-db' # https://github.com/celery/django-celery-results/issues/19
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = TIME_ZONE
+# CELERY_BROKER_URL = amqp_url
+# CELERY_RESULT_BACKEND = 'django-db' # https://github.com/celery/django-celery-results/issues/19
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TIMEZONE = TIME_ZONE
 

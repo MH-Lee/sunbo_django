@@ -1,5 +1,6 @@
 from __future__ import absolute_import
-from celery import shared_task
+# from celery import shared_task
+# from celery.decorators import task
 from information.task_module.rescue_crawler import RescueCrawler
 from information.task_module.dart_crawler import DartUpdate
 from information.models import Rescue, Dart
@@ -59,7 +60,8 @@ def dart_send(data):
 
 
 
-@shared_task
+# @shared_task
+# @task(name="rescue-send")
 def rescue_data_send():
     start_time = time.time()
     r = RescueCrawler()
@@ -71,7 +73,7 @@ def rescue_data_send():
     end_time = time.time()
     return True, (end_time - start_time), "Data send complete"
 
-@shared_task
+# @task(name="dart-send")
 def dart_data_send():
     start_time = time.time()
     du = DartUpdate()

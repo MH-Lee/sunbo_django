@@ -1,5 +1,16 @@
 {% extends "information/_base.html" %}
-{% block title %}회생법원 신청리스트{% endblock %}
+{% block title %}회생법원 신청리스트  &nbsp; 
+{% if request.user.is_superuser %}
+  <button type="submit" class="btn btn-primary" onclick="location.href='/information/rescue_update'">업데이트</button>
+{% else %}
+&nbsp; 
+{% if request.user.subscription %}
+  <button type="submit" class="btn btn-primary" onclick="location.href='/information/api/rescue/'">API 보기</button>
+{% else %}
+{% endif %}
+
+{% endif %}
+{% endblock %}
 {% block search %}
 <form class="form-inline my-2 my-lg-0 justify-content-end"  method="GET" action="{% url 'rescue_list' %}">
   {% csrf_token %}

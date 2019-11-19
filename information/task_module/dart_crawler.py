@@ -22,6 +22,7 @@ class DartUpdate:
         self.first_page = "http://dart.fss.or.kr/api/search.xml?auth="+ self.auth_key + "&start_dt={}&dsp_tp=B&bsn_tp=B001&page_no=1&page_set=100"
         self.dart_list_url = "http://dart.fss.or.kr/api/search.xml?auth="+ self.auth_key +"&start_dt={}&dsp_tp=B&bsn_tp=B001&page_no={}&page_set=100"
         self.naver_url = 'https://search.naver.com/search.naver?&where=news&query={}&start=1&sort=sim&field=0&pd=6'
+        self.before_week = datetime.today() + timedelta(weeks=-1)
 
     def all_company_info(self, start_date):
         data = pd.DataFrame() #빈 데이터프레임 생성
@@ -80,8 +81,8 @@ class DartUpdate:
         return naver_news_address
 
     def make_dart_data(self):
-        before_week = datetime.today() + timedelta(weeks=-1)
-        info_list= self.all_company_info(before_week.strftime("%Y%m%d"))
+        
+        info_list= self.all_company_info(self.before_week.strftime("%Y%m%d"))
         url_list = []
         d_comp=[]
         for i in range(len(info_list)):

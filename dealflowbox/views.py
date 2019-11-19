@@ -101,10 +101,8 @@ def manual_update(request):
             pass
         else:
             dfb_df_new = dfb_df2[dfb_df2['Date'] > last_update]
-            dfb_df_new
-            i =1
             dfb_list_new = list()
-            for i in range(dfb_list.shape[0]):
+            for i in range(dfb_df_new.shape[0]):
                 print(i)
                 date = dfb_df_new.iloc[i,0].strftime('%Y-%m-%d')
                 company_name = dfb_df_new.iloc[i,1]

@@ -2,14 +2,14 @@ import requests
 from bs4 import BeautifulSoup
 import re
 from urllib.request import urlopen
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 import math
 import urllib.error
 import urllib.parse
 import time
 import pandas as pd
 import numpy as np
-from datetime import date, timedelta
+
 
 
 class NaverNewsCrawler:

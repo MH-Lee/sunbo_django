@@ -16,29 +16,31 @@ def debug_task(self):
 from celery.schedules import crontab
 
 app.conf.beat_schedule = {
-    'dfb_update_check': {
-        'task': 'dealflowbox.tasks.dealflowbox_update',
-        'schedule': crontab(minute='45', hour='1', day_of_week='mon'),
-        'args': (),
-    },
-    'dart_update': {
-        'task': 'information.tasks.dart_data_send',
-        'schedule': crontab(minute='13', hour='22', day_of_week='mon'),
-        'args': (),
-    },
-    'rescue_update': {
-        'task': 'information.tasks.rescue_data_send',
-        'schedule': crontab(minute='31', hour='22', day_of_week='mon'),
-        'args': (),
-    },
-    'news_update': {
-        'task': 'news.tasks.news_datasend',
-        'schedule': crontab(minute='18', hour='22', day_of_week='mon'),
-        'args': (),
-    },
-    'prof_update': {
-        'task': 'news.tasks.professor_data_send',
-        'schedule': crontab(minute='23', hour='22', day_of_week='mon'),
-        'args': (),
-    },
+    # 'dart_update': {
+    #     'task': 'dart-send',
+    #     'schedule': crontab(minute='08', hour='12', day_of_week='tue'),
+    #     'args': (),
+    # },
+    # 'rescue_update': {
+    #     'task': 'rescue-send',
+    #     'schedule': crontab(minute='11', hour='12', day_of_week='tue'),
+    #     'args': (),
+    # },
+
 }
+
+# 'dfb_update_check': {
+#     'task': 'dealflowbox.tasks.dealflowbox_update',
+#     'schedule': crontab(minute='45', hour='1', day_of_week='mon'),
+#     'args': (),
+# },
+# 'news_update': {
+#     'task': 'news.tasks.news_datasend',
+#     'schedule': crontab(minute='18', hour='22', day_of_week='mon'),
+#     'args': (),
+# },
+# 'prof_update': {
+#     'task': 'news.tasks.professor_data_send',
+#     'schedule': crontab(minute='23', hour='22', day_of_week='mon'),
+#     'args': (),
+# },

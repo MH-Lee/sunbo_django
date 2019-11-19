@@ -1,5 +1,10 @@
 {% extends "news/_base.html" %}
-{% block title %}LP 기업 뉴스{% endblock %}
+{% block title %}LP 기업 뉴스 &nbsp;
+{% if request.user.is_superuser %}
+  <button type="submit" class="btn btn-primary" onclick="location.href='/news/company_update'">업데이트</button>
+{% else %}
+{% endif %}
+{% endblock %}
 {% block search %}
 <form class="form-inline my-2 my-lg-0 justify-content-end"  method="GET" action="{% url 'lp_company' %}">
   {% csrf_token %}

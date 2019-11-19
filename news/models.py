@@ -1,6 +1,31 @@
 from django.db import models
-from django.conf import settings
 # Create your models here.
+
+class NewsUpdateCheck(models.Model):
+    recent_date = models.CharField(max_length=10, blank=True, null=True, \
+                                   verbose_name='업데이트 날짜')
+    update_date = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.recent_date
+
+    class Meta:
+        db_table = 'news_update_checker'
+        verbose_name = '뉴스 업데이트 확인'
+        verbose_name_plural = '뉴스 업데이트 확인'
+
+
+class ProfessorUpdateCheck(models.Model):
+    recent_date = models.CharField(max_length=10, blank=True, null=True, \
+                                   verbose_name='업데이트 날짜')
+    update_date = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.recent_date
+
+    class Meta:
+        db_table = 'professor_update_checker'
+        verbose_name = '교수개발 업데이트 확인'
+        verbose_name_plural = '교수개발 업데이트 확인'
+
 #투자 뉴스
 class InvestNews(models.Model):
     media = models.CharField(max_length=20, verbose_name="신문사")

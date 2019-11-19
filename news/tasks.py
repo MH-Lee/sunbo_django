@@ -1,5 +1,5 @@
 from __future__ import absolute_import
-from celery import shared_task
+# from celery import shared_task
 from news.task_module.professor import ProfessorNews
 from news.task_module.news_crawler import NaverNewsCrawler
 from news.models import (InvestNews,
@@ -72,7 +72,7 @@ def prof_send(data):
     print('교수개발 업로드')
     return (end_time - start_time),  "Data request complete"
 
-@shared_task
+# @shared_task
 def professor_data_send():
     path = '/home/ubuntu/sunbo_django/news/task_module'
     start_time = time.time()
@@ -82,7 +82,7 @@ def professor_data_send():
     end_time = time.time()
     return (end_time - start_time),  "Data request complete"
 
-@shared_task
+# @shared_task
 def news_datasend():
     path = '/home/ubuntu/sunbo_django/news/task_module'
     start_time = time.time()
