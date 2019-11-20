@@ -236,10 +236,10 @@ class RescueCrawler:
             result = 'none'
         return result
 
-    def html_refine(self, html):
-        result = str(html).replace(str1, "").replace(str2, "").replace(js, "")
-        # .replace(caption,"")
-        return result
+    # def html_refine(self, html):
+    #     result = str(html).replace(str1, "").replace(str2, "").replace(js, "")
+    #     # .replace(caption,"")
+    #     return result
 
     def rescue_crawling(self):
         area_list = ['서울','의정부','인천','수원','춘천','대전','청주','대구','부산','울산','창원','광주','전주','제주']
@@ -249,7 +249,7 @@ class RescueCrawler:
                 driver = webdriver.Chrome(r'/usr/lib/chromium-browser/chromedriver', options=self.options)
             else:
                 driver = webdriver.Chrome('.\\information\\task_module\\chromedriver', options=self.options)
-            driver.implicitly_wait(3)
+            driver.implicitly_wait(5)
             temp = self.get_content(driver, area, self.start_date, self.end_date)
             #driver.close()
             driver.quit()
@@ -265,6 +265,7 @@ class RescueCrawler:
                 ceo.append('none')
 
         final_result['address2'] = final_result['address'].apply(lambda x: self.catch_address(x))
+        final_result['html'] = final_result['html'].apply(str)
         # final_result['html'] = final_result['html'].apply(lambda x:self.html_refine(x))
         final_result['ceo'] = ceo
         del final_result['sub_info']

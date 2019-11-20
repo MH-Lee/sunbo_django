@@ -163,7 +163,7 @@ def rescue_data_send(request):
     else:
         backup_filename = path + "\\information\\task_module\\backup\\rescue\\" + datetime.today().strftime("%Y%m%d")+ "_rescue_court.csv"
 
-    r = RescueCrawler()
+    r = RescueCrawler(term=2)
     update_check_obj = RescueUpdateCheck.objects.first()
     crawling_enddate = pd.to_datetime(r.end_date).date()
     if update_check_obj == None:

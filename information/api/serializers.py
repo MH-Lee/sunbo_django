@@ -8,6 +8,7 @@ class DartSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class RescueSerializer(serializers.ModelSerializer):
+    content_url = serializers.SerializerMethodField('get_content_url')
     class Meta:
         model = Rescue
         fields = ('id',
@@ -20,4 +21,8 @@ class RescueSerializer(serializers.ModelSerializer):
                   'court',
                   'subject',
                   'news_title',
-                  'news_url')
+                  'news_url',
+                  'content_url')
+    
+    def get_content_url(self, obj):
+        return "/information/rescue_detail/{}/".format(obj.id)
