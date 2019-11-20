@@ -205,7 +205,7 @@ def dart_data_send(request):
         backup_filename = path + "\\information\\task_module\\backup\\dart\\" + datetime.today().strftime("%Y%m%d")+ "_dart.csv"
 
     du = DartUpdate()
-    update_check_obj = RescueUpdateCheck.objects.first()
+    update_check_obj = DartUpdateCheck.objects.first()
     # crawling_enddate = pd.to_datetime(du.before_week).date()
     if update_check_obj == None:
         print("data_update")
