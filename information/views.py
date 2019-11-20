@@ -30,14 +30,15 @@ def rescue_list(request):
                 rescue_obj = Rescue.objects.filter(
                     Q(area__icontains=query) | Q(case_num__icontains=query) |\
                     Q(subject__icontains=query) | Q(company_name__icontains=query) |\
-                    Q(category__icontains=query) | Q(news_title__icontains=query)
-                ).order_by('-id')
+                    Q(category__icontains=query) | Q(news_title__icontains=query) |\
+                    Q(date=query)
+                ).order_by('-date')
                 direction = None
             except:
-                rescue_obj = Rescue.objects.all().order_by('-id')
+                rescue_obj = Rescue.objects.all().order_by('-date')
                 direction = None
     else:
-        rescue_obj = Rescue.objects.all().order_by('-id')
+        rescue_obj = Rescue.objects.all().order_by('-date')
         direction = None
     page = int(request.GET.get('p',1))
     try:
@@ -73,14 +74,15 @@ def dart_list(request):
         else:   
             try:
                 darts = Dart.objects.filter(
-                    Q(company_name__icontains=query) | Q(news_title__icontains=query) |  Q(another_name__icontains=query)
-                ).order_by('-id')
+                    Q(company_name__icontains=query) | Q(news_title__icontains=query) |\
+                    Q(another_name__icontains=query) | Q(date=query)
+                ).order_by('-date')
                 direction = None
             except:
-                darts = Dart.objects.all().order_by('-id')
+                darts = Dart.objects.all().order_by('-date')
                 direction = None
     else:
-        darts = Dart.objects.all().order_by('-id')
+        darts = Dart.objects.all().order_by('-date')
         direction = None
     page = int(request.GET.get('p',1))
     try:

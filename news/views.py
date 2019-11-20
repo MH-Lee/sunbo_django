@@ -35,7 +35,8 @@ def LP_company_list(request):
             try:
                 lp_company_obj = LPCompany.objects.filter(
                     Q(media__icontains=query) | Q(news_title__icontains=query) |\
-                    Q(company_name__icontains=query) | Q(category__icontains=query)
+                    Q(company_name__icontains=query) | Q(category__icontains=query)|\
+                    Q(date=query)
                 ).order_by('-id')
                 direction = None
             except:
@@ -70,9 +71,10 @@ def main_company_list(request):
         else:   
             try:
                 main_company_obj = MainCompany.objects.filter(
-                Q(media__icontains=query) | Q(news_title__icontains=query) |\
-                    Q(company_name__icontains=query) | Q(category__icontains=query)
-                ).order_by('-id')
+                    Q(media__icontains=query) | Q(news_title__icontains=query) |\
+                    Q(company_name__icontains=query) | Q(category__icontains=query) |\
+                    Q(date=query)
+                ).order_by('-date')
                 direction = None
             except:
                 main_company_obj = MainCompany.objects.all().order_by('-id') 
@@ -107,14 +109,15 @@ def portfolio_list(request):
             try:
                 _port_obj = Portfolio.objects.filter(
                     Q(media__icontains=query) | Q(news_title__icontains=query) |\
-                    Q(company_name__icontains=query) | Q(category__icontains=query)
-                ).order_by('-id')
+                    Q(company_name__icontains=query) | Q(category__icontains=query)|\
+                    Q(date=query)
+                ).order_by('-date')
                 direction = None
             except:
-                _port_obj = Portfolio.objects.all().order_by('-id')
+                _port_obj = Portfolio.objects.all().order_by('-date')
                 direction = None
     else:
-        _port_obj = Portfolio.objects.all().order_by('-id')
+        _port_obj = Portfolio.objects.all().order_by('-date')
         direction = None
     page = int(request.GET.get('p',1))
     try:
@@ -143,14 +146,14 @@ def investment_news_list(request):
             try:
                 _invest_obj = InvestNews.objects.filter(
                     Q(media__icontains=query) | Q(news_title__icontains=query) |\
-                    Q(date__icontains=query) 
-                ).order_by('-id')
+                    Q(date__icontains=query) | Q(date=query) 
+                ).order_by('-date')
                 direction = None
             except:
-                _invest_obj = InvestNews.objects.all().order_by('-id')    
+                _invest_obj = InvestNews.objects.all().order_by('-date')    
                 direction = None
     else:
-        _invest_obj = InvestNews.objects.all().order_by('-id')
+        _invest_obj = InvestNews.objects.all().order_by('-date')
         direction = None
     page = int(request.GET.get('p',1))
     try:
@@ -180,7 +183,8 @@ def professor_list(request):
             try:
                 _professor_obj = Professor.objects.filter(
                 Q(media__icontains=query) | Q(news_title__icontains=query) |\
-                    Q(small_class_1__icontains=query) | Q(small_class_2__icontains=query)
+                Q(small_class_1__icontains=query) | Q(small_class_2__icontains=query)|\
+                Q(date=query)
                 ).order_by('-id')
                 direction = None
             except:
@@ -263,29 +267,6 @@ def prof_send(data):
 ########################################################################################################
 ####### manual view                     ################################################################
 ########################################################################################################
-
-# def professor_data_send():
-#     path = '/home/ubuntu/sunbo_django/news/task_module'
-#     start_time = time.time()
-#     prof = ProfessorNews()
-#     professor_last = prof.professor_prediction()
-#     professor_last.to_csv(path + "/backup_data/" + datetime.today().strftime("%Y%m%d")+ "_Professor_Development_naver.csv",  encoding = "utf-8-sig", header=True, index=False) 
-#     end_time = time.time()
-#     print(end_time - start_time)
-#     return redirect("/news/professor/")
-# def news_datasend():
-#     path = '/home/ubuntu/sunbo_django/news/task_module'
-#     start_time = time.time()
-#     Naver = NaverNewsCrawler()
-#     invest = Naver.naver_crawler_exe(mode='invest')
-#     company = Naver.naver_crawler_exe(mode='company')
-#     invest.to_csv(path + "/backup_data/" + datetime.today().strftime("%Y%m%d")+ "_Investment_attraction_naver.csv",  encoding = "utf-8-sig", header=True, index=False)
-#     company.to_csv(path + "/backup_data/" + datetime.today().strftime("%Y%m%d")+ "_company_naver.csv",  encoding = "utf-8-sig", header=True, index=False)
-    # invest_news_send(invest)
-    # company_send(company)
-#     end_time = time.time()
-#     print(end_time - start_time)
-#     return  redirect("/")
 
 def professor_data_send(request):
     start_time = time.time()
