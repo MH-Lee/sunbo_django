@@ -10,7 +10,7 @@ class DartAdmin(admin.ModelAdmin):
 
 
 class RescueAdmin(admin.ModelAdmin):
-    list_display = ('case_num', 'subject')
+    list_display = ('date', 'area', 'company_name', 'case_num', 'subject')
 
 
 class DartUpdateCheckAdmin(admin.ModelAdmin):

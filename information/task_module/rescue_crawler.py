@@ -33,10 +33,10 @@ MM_reloadPage(true);
 </script>
 <link href="/wbi.css" rel="stylesheet" type="text/css"/>
 """
-caption = """
-<caption="특별조사기일 style="display:inline !important; visibility:visible !important; width:1px; height:1px; font-size:0px; overflow:hidden; line-height:0; " 공고"="" 관계인집회기일="" 및="" 제2,3회="">
-</caption="특별조사기일><table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
-"""
+# caption = """
+# <caption="특별조사기일 style="display:inline !important; visibility:visible !important; width:1px; height:1px; font-size:0px; overflow:hidden; line-height:0; " 공고"="" 관계인집회기일="" 및="" 제2,3회="">
+# </caption="특별조사기일><table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+# """
 str1 = """<td height="33" style="padding-left:20px"><img alt="로고" src="/img/hpgonggo/logo_scourt.gif"/></td>"""
 str2 = """<td height="27"><img alt="종료" border="0" onclick="window.close();" src="/img/hpgonggo/btn_close.gif" style="cursor:hand"/><img alt="공백" height="10" src="/img/hpgonggo/blank.gif" width="10"/></td>"""
 
@@ -237,7 +237,8 @@ class RescueCrawler:
         return result
 
     def html_refine(self, html):
-        result = str(html).replace(str1, "").replace(str2, "").replace(js, "").replace(caption,"")
+        result = str(html).replace(str1, "").replace(str2, "").replace(js, "")
+        # .replace(caption,"")
         return result
 
     def rescue_crawling(self):
@@ -264,7 +265,7 @@ class RescueCrawler:
                 ceo.append('none')
 
         final_result['address2'] = final_result['address'].apply(lambda x: self.catch_address(x))
-        final_result['html'] = final_result['html'].apply(lambda x:self.html_refine(x))
+        # final_result['html'] = final_result['html'].apply(lambda x:self.html_refine(x))
         final_result['ceo'] = ceo
         del final_result['sub_info']
         news_result = self.get_news_content_keyword(final_result)

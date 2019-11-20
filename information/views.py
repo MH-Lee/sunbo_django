@@ -124,7 +124,7 @@ def rescue_send(data):
             print(address)
         rescue_obj = Rescue(date=date, area=area, case_num=case_num, company_name=company_name, \
                             court=court, subject=subject, category=category, contents=contents,\
-                            news_title=news_title, news_url=news_url, address=address, ceo=ceo)
+                            news_title=news_title, news_url=news_url, company_address=address, ceo=ceo)
         rescue_list.append(rescue_obj)
     Rescue.objects.bulk_create(rescue_list)
     print('회생법인 업로드')

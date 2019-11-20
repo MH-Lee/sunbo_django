@@ -21,11 +21,11 @@ start_path = os.getcwd()
 if sys.argv[1] == 'cleanmigrations':
     c = Cleaner(start_path)
     c.clean_migrations()
-    # db = start_path + '/db.sqlite3'
-    # print(db)
-    # if os.path.exists(db):
-    #     os.remove(db)
-    #     print('Removed database')
+    db = start_path + '/db.sqlite3'
+    print(db)
+    if os.path.exists(db):
+        os.remove(db)
+        print('Removed database')
 
 elif sys.argv[1] == 'datasend':
     # dart_send()

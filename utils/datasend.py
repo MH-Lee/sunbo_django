@@ -215,7 +215,7 @@ def rescue_send():
         # writer = User.objects.get(username='admin')
         rescue_obj = Rescue(date=date, area=area, case_num=case_num, company_name=company_name, \
                             court=court, subject=subject, category=category, contents=contents,\
-                            news_title=news_title, news_url=news_url, address=address)
+                            news_title=news_title, news_url=news_url, company_address=address)
         rescue_list.append(rescue_obj)
     Rescue.objects.bulk_create(rescue_list)
     print('회생법인 업로드')
