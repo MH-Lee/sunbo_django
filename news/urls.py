@@ -8,6 +8,6 @@ urlpatterns = [
     path('professor/', views.professor_list, name='professor'),
     path('investment_news/', views.investment_news_list, name='investment_news'),
     # manual_update
-    path('professor_update/', views.professor_list, name='professor-update'),
-    path('company_update/', views.investment_news_list, name='company-update'),
+    path('professor_update/', views.professor_data_send, name='professor-update'),
+    path('company_update/', views.news_datasend, name='company-update'),
 ]

@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import Rescue, Dart, DartUpdateCheck, RescueUpdateCheck
 import pandas as pd
+
 # Create your views here.
 def rescue_detail(request, pk):
     try:
@@ -95,9 +96,10 @@ def dart_list(request):
 ########################################################################################################
 from information.task_module.rescue_crawler import RescueCrawler
 from information.task_module.dart_crawler import DartUpdate
+from datetime import datetime, timedelta, date
 import os
 import time
-from datetime import datetime, timedelta, date
+import platform
 
 def rescue_send(data):
     data['date'] = data['date'].apply(lambda x:str(x).replace('.','-'))
@@ -151,6 +153,14 @@ def dart_send(data):
 
 def rescue_data_send(request):
     start_time = time.time()
+    print(os.getcwd())
+    path = os.getcwd()
+    if platform.system() == 'Linux':
+        # path = '/home/ubuntu/sunbo_django/information/task_module'
+        backup_filename = path + "/information/task_module/backup/rescue/" + datetime.today().strftime("%Y%m%d")+ "_rescue_court.csv"
+    else:
+        backup_filename = path + "\\information\\task_module\\backup\\rescue\\" + datetime.today().strftime("%Y%m%d")+ "_rescue_court.csv"
+
     r = RescueCrawler()
     update_check_obj = RescueUpdateCheck.objects.first()
     crawling_enddate = pd.to_datetime(r.end_date).date()
@@ -159,8 +169,7 @@ def rescue_data_send(request):
         rescue_data = r.rescue_crawling()
         rescue_data.fillna('None', inplace=True)
         rescue_data.sort_values('date', ascending=False, inplace=True)
-        path = os.getcwd()
-        rescue_data.to_csv(path + '/information/task_module/backup/rescue/' + datetime.today().strftime("%Y%m%d")+'_rescue_court.csv',  encoding = "utf-8-sig", header=True, index=False)
+        rescue_data.to_csv(backup_filename,  encoding = "utf-8-sig", header=True, index=False)
         rescue_send(rescue_data)
         RescueUpdateCheck.objects.all().delete()
         uc_obj = RescueUpdateCheck(recent_date=pd.to_datetime(rescue_data['date'])[0].date().strftime('%Y-%m-%d'))
@@ -175,8 +184,7 @@ def rescue_data_send(request):
             rescue_data = r.rescue_crawling()
             rescue_data.fillna('None', inplace=True)
             rescue_data.sort_values('date', ascending=False, inplace=True)
-            path = os.getcwd()
-            rescue_data.to_csv(path + '/information/task_module/backup/rescue/' + datetime.today().strftime("%Y%m%d")+'_rescue_court.csv',  encoding = "utf-8-sig", header=True, index=False)
+            rescue_data.to_csv(backup_filename,  encoding = "utf-8-sig", header=True, index=False)
             rescue_send(rescue_data)
             RescueUpdateCheck.objects.all().delete()
             uc_obj = RescueUpdateCheck(recent_date=pd.to_datetime(rescue_data['date'])[0].date().strftime('%Y-%m-%d'))
@@ -188,6 +196,14 @@ def rescue_data_send(request):
 
 def dart_data_send(request):
     start_time = time.time()
+    print(os.getcwd())
+    path = os.getcwd()
+    if platform.system() == 'Linux':
+        # path = '/home/ubuntu/sunbo_django/information/task_module'
+        backup_filename = path + "/information/task_module/backup/dart/" + datetime.today().strftime("%Y%m%d")+ "_dart.csv"
+    else:
+        backup_filename = path + "\\information\\task_module\\backup\\dart\\" + datetime.today().strftime("%Y%m%d")+ "_dart.csv"
+
     du = DartUpdate()
     update_check_obj = RescueUpdateCheck.objects.first()
     # crawling_enddate = pd.to_datetime(du.before_week).date()
@@ -196,8 +212,7 @@ def dart_data_send(request):
         dart_result = du.make_dart_data()
         dart_result.fillna('None', inplace=True)
         dart_result.sort_values('공시접수일자', ascending=False, inplace=True)
-        path = os.getcwd()
-        dart_result.to_csv(path + '/information/task_module/backup/rescue/' + datetime.today().strftime("%Y%m%d")+'_dart.csv',  encoding = "utf-8-sig", header=True, index=False)
+        dart_result.to_csv(backup_filename,  encoding = "utf-8-sig", header=True, index=False)
         dart_send(dart_result)
         DartUpdateCheck.objects.all().delete()
         uc_obj = DartUpdateCheck(recent_date=pd.to_datetime(dart_result['공시접수일자'])[0].date().strftime('%Y-%m-%d'))
@@ -213,7 +228,7 @@ def dart_data_send(request):
             dart_result.fillna('None', inplace=True)
             dart_result.sort_values('공시접수일자', ascending=False, inplace=True)
             path = os.getcwd()
-            dart_result.to_csv(path + '/information/task_module/backup/rescue/' + datetime.today().strftime("%Y%m%d")+'_dart.csv',  encoding = "utf-8-sig", header=True, index=False)
+            dart_result.to_csv(backup_filename,  encoding = "utf-8-sig", header=True, index=False)
             dart_send(dart_result)
             DartUpdateCheck.objects.all().delete()
             uc_obj = DartUpdateCheck(recent_date=pd.to_datetime(dart_result['공시접수일자'])[0].date().strftime('%Y-%m-%d'))

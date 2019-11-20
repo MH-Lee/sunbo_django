@@ -15,6 +15,7 @@ from .models import (LPCompany,
                     NewsUpdateCheck,
                     ProfessorUpdateCheck               
                     )
+import os, platform
 
 # Create your views here.
 # main_company_view
@@ -247,7 +248,7 @@ def company_send(data):
 def prof_send(data):
     prof_list = []
     for i in range(data.shape[0]):
-        media = data.iloc[i,'press']
+        media = data.loc[i,'press']
         news_title = data.loc[i,'title']
         date = data.loc[i,'date']
         small_class_1 = data.loc[i,'predicted_label1']
@@ -288,7 +289,14 @@ def prof_send(data):
 
 def professor_data_send(request):
     start_time = time.time()
-    path = '/home/ubuntu/sunbo_django/news/task_module'
+    if platform.system() == 'Linux':
+        path = '/home/ubuntu/sunbo_django/news/task_module'
+        backup_filename = path + "/backup_data/" + datetime.today().strftime("%Y%m%d")+ "_Professor_Development_naver.csv"
+    else:
+        print(os.getcwd())
+        path = os.getcwd()
+        backup_filename = path + "\\news\\task_module\\backup_data\\" + datetime.today().strftime("%Y%m%d")+ "_Professor_Development_naver.csv"
+
     prof = ProfessorNews()
     update_check_obj = ProfessorUpdateCheck.objects.first()
     crawling_enddate = pd.to_datetime(prof.Naver.end_date).date()
@@ -296,7 +304,7 @@ def professor_data_send(request):
         print("data_update")
         professor_last = prof.professor_prediction()
         professor_last.sort_values('date', ascending=False, inplace=True)
-        professor_last.to_csv(path + "/backup_data/" + datetime.today().strftime("%Y%m%d")+ "_Professor_Development_naver.csv",  encoding = "utf-8-sig", header=True, index=False) 
+        professor_last.to_csv(backup_filename,  encoding = "utf-8-sig", header=True, index=False) 
         prof_send(professor_last)
         uc_obj = ProfessorUpdateCheck(recent_date=pd.to_datetime(professor_last['date'])[0].date().strftime('%Y-%m-%d'))
         uc_obj.save()
@@ -310,7 +318,7 @@ def professor_data_send(request):
             prof = ProfessorNews()
             professor_last = prof.professor_prediction()
             professor_last.sort_values('date', ascending=False, inplace=True)
-            professor_last.to_csv(path + "/backup_data/" + datetime.today().strftime("%Y%m%d")+ "_Professor_Development_naver.csv",  encoding = "utf-8-sig", header=True, index=False) 
+            professor_last.to_csv(backup_filename,  encoding = "utf-8-sig", header=True, index=False) 
             prof_send(professor_last)
             ProfessorUpdateCheck.objects.all().delete()
             uc_obj = ProfessorUpdateCheck(recent_date=pd.to_datetime(professor_last['date'])[0].date().strftime('%Y-%m-%d'))
@@ -318,12 +326,21 @@ def professor_data_send(request):
             print("data_update complete")
     end_time = time.time()
     print(end_time - start_time)
-    return redirect("/information/rescue_list/")
+    return redirect("/news/professor/")
 
 
 def news_datasend(request):
     start_time = time.time()
-    path = '/home/ubuntu/sunbo_django/news/task_module'
+    if platform.system() == 'Linux':
+        path = '/home/ubuntu/sunbo_django/news/task_module'
+        inv_backup_filename = path + "/backup_data/" + datetime.today().strftime("%Y%m%d")+ "_Investment_attraction_naver.csv"
+        com_backup_filename = path + "/backup_data/" + datetime.today().strftime("%Y%m%d")+ "_company_naver.csv"
+    else:
+        print(os.getcwd())
+        path = os.getcwd()
+        inv_backup_filename = path + "\\news\\task_module\\backup_data\\" + datetime.today().strftime("%Y%m%d")+ "_Investment_attraction_naver.csv"
+        com_backup_filename = path + "\\news\\task_module\\backup_data\\" + datetime.today().strftime("%Y%m%d")+ "_company_naver.csv"
+
     Naver = NaverNewsCrawler()
     update_check_obj = NewsUpdateCheck.objects.first()
     crawling_enddate = pd.to_datetime(Naver.end_date).date()
@@ -333,8 +350,8 @@ def news_datasend(request):
         company = Naver.naver_crawler_exe(mode='company')
         invest.sort_values('date', ascending=False, inplace=True)
         company.sort_values('date', ascending=False, inplace=True)
-        invest.to_csv(path + "/backup_data/" + datetime.today().strftime("%Y%m%d")+ "_Investment_attraction_naver.csv",  encoding = "utf-8-sig", header=True, index=False)
-        company.to_csv(path + "/backup_data/" + datetime.today().strftime("%Y%m%d")+ "_company_naver.csv",  encoding = "utf-8-sig", header=True, index=False)
+        invest.to_csv(inv_backup_filename,  encoding = "utf-8-sig", header=True, index=False)
+        company.to_csv(com_backup_filename,  encoding = "utf-8-sig", header=True, index=False)
         invest_news_send(invest)
         company_send(company)
         uc_obj = NewsUpdateCheck(recent_date=pd.to_datetime(company['date'])[0].date().strftime('%Y-%m-%d'))
@@ -350,8 +367,8 @@ def news_datasend(request):
             company = Naver.naver_crawler_exe(mode='company')
             invest.sort_values('date', ascending=False, inplace=True)
             company.sort_values('date', ascending=False, inplace=True)
-            invest.to_csv(path + "/backup_data/" + datetime.today().strftime("%Y%m%d")+ "_Investment_attraction_naver.csv",  encoding = "utf-8-sig", header=True, index=False)
-            company.to_csv(path + "/backup_data/" + datetime.today().strftime("%Y%m%d")+ "_company_naver.csv",  encoding = "utf-8-sig", header=True, index=False)
+            invest.to_csv(inv_backup_filename,  encoding = "utf-8-sig", header=True, index=False)
+            company.to_csv(com_backup_filename,  encoding = "utf-8-sig", header=True, index=False)
             invest_news_send(invest)
             company_send(company)
             uc_obj = NewsUpdateCheck(recent_date=pd.to_datetime(company['date'])[0].date().strftime('%Y-%m-%d'))

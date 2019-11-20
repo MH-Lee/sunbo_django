@@ -18,6 +18,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException,StaleElementReferenceException
 import pandas as pd
+import platform
 
 js = """
 <script language="javascript" type="text/javascript">
@@ -243,7 +244,10 @@ class RescueCrawler:
         area_list = ['서울','의정부','인천','수원','춘천','대전','청주','대구','부산','울산','창원','광주','전주','제주']
         final_result = pd.DataFrame()
         for area in area_list:
-            driver = webdriver.Chrome(r'/usr/lib/chromium-browser/chromedriver', options=self.options)
+            if platform.system == 'Linux':
+                driver = webdriver.Chrome(r'/usr/lib/chromium-browser/chromedriver', options=self.options)
+            else:
+                driver = webdriver.Chrome('.\\information\\task_module\\chromedriver', options=self.options)
             driver.implicitly_wait(3)
             temp = self.get_content(driver, area, self.start_date, self.end_date)
             #driver.close()

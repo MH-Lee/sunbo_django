@@ -27,24 +27,36 @@ from gensim.summarization import keywords
 from newspaper import Article
 from newspaper import fulltext
 from news.task_module.news_crawler import NaverNewsCrawler
-
+import platform
+import os
 # from news.task_module.professor import ProfessorNews
 
 class ProfessorNews:
     def __init__(self):
-        self.path = '/home/ubuntu/sunbo_django/recommender/models/'
-        self.path2 = '/home/ubuntu/sunbo_django/news/task_module'
-        self.ko_stopwords = pd.read_csv(self.path2 + '/nlp_data/korean_stopwords.txt')
-        self.token_stops = pd.read_csv(self.path2 + '/nlp_data/token_stopwords.csv', engine='python', encoding='cp949')['stopwords'].tolist()
-        self.doc_vectorizer = Doc2Vec.load(self.path + 'Doc2vec1.model')
-        self.doc_set = pd.read_excel(self.path2 + '/nlp_data/doc_set.xlsx')
-        self.doc_set['token'] = self.doc_set['token'].apply(lambda x: x.replace("['","").replace("']","").split("', '"))
+        path = os.getcwd()
         # self.new_small = pd.read_excel('./nlp_data/new_small_class.xlsx')
-        self.mlp_clf = joblib.load(self.path2 + '/nlp_material/mlp_clf.sav')
-        self.mlp_clf2 = joblib.load(self.path2 + '/nlp_material/mlp_clf2.sav')
+        if platform.system() == 'Linux':
+            # path = '/home/ubuntu/sunbo_django/recommender/models/'
+            # path2 = '/home/ubuntu/sunbo_django/news/task_module'
+            self.ko_stopwords = pd.read_csv(path + '/news/task_module/nlp_data/korean_stopwords.txt')
+            self.token_stops = pd.read_csv(path + '/news/task_module/nlp_data/token_stopwords.csv', engine='python', encoding='cp949')['stopwords'].tolist()
+            self.doc_vectorizer = Doc2Vec.load(path + '/recommender/models/Doc2vec1.model')
+            self.doc_set = pd.read_excel(path + '/news/task_module/nlp_data/doc_set.xlsx')
+            self.mlp_clf = joblib.load(path + '/news/task_module/nlp_material/mlp_clf.sav')
+            self.mlp_clf2 = joblib.load(path + '/news/task_module/nlp_material/mlp_clf2.sav')
+            if os.path.exists(path + '/news/task_module/backup_data/') == False:
+                os.mkdir(path + '/news/task_module/backup_data/')
+        else:
+            self.ko_stopwords = pd.read_csv(path + '\\news\\task_module\\nlp_data\\korean_stopwords.txt')
+            self.token_stops = pd.read_csv(path + '\\news\\task_module\\nlp_data\\token_stopwords.csv', engine='python', encoding='cp949')['stopwords'].tolist()
+            self.doc_vectorizer = Doc2Vec.load(path + '\\recommender\\models\\Doc2vec1.model')
+            self.doc_set = pd.read_excel(path + '\\news\\task_module\\nlp_data\\doc_set.xlsx')
+            self.mlp_clf = joblib.load(path + '\\news\\task_module\\nlp_material\\mlp_clf.sav')
+            self.mlp_clf2 = joblib.load(path + '\\news\\task_module\\nlp_material\\mlp_clf2.sav')
+            if os.path.exists(path + '\\news\\task_module\\backup_data\\') == False:
+                os.mkdir(path + '\\news\\task_module\\backup_data\\')
+        self.doc_set['token'] = self.doc_set['token'].apply(lambda x: x.replace("['","").replace("']","").split("', '"))
         self.Naver = NaverNewsCrawler()
-        if os.path.exists(self.path2+ '/backup_data/') == False:
-            os.mkdir(self.path2 + '/backup_data/')
         print("datasend start!")
 
     def noun_corpus(self, sents):

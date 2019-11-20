@@ -8,7 +8,7 @@ Dart 기업 공시 열람 &nbsp;
 
 &nbsp;
 
-{% if request.user.subscription %}
+{% if user.subscription %}
   <button type="submit" class="btn btn-primary" onclick="location.href='/information/api/dart/'">API 보기</button>
 {% else %}
 {% endif %}

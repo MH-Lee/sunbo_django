@@ -16,6 +16,7 @@ class RescueSerializer(serializers.ModelSerializer):
                   'case_num',
                   'company_name',
                   'company_address',
+                  'ceo',
                   'court',
                   'subject',
                   'news_title',

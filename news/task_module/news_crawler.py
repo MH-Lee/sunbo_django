@@ -9,12 +9,21 @@ import urllib.parse
 import time
 import pandas as pd
 import numpy as np
-
+import platform
+import os
 
 
 class NaverNewsCrawler:
     def __init__(self):
-        path = '/home/ubuntu/sunbo_django/news/task_module/'
+        if platform.system() == 'Linux':
+            path = '/home/ubuntu/sunbo_django/news/task_module'
+            self.company_list = pd.read_excel(path + '/nlp_data/company_list.xlsx')
+            self.stopwords = pd.read_excel(path + '/nlp_data/crawling_stopwords.xlsx')
+        else:
+            print(os.getcwd())
+            path = os.getcwd()
+            self.company_list = pd.read_excel(path + '\\news\\task_module\\nlp_data\\company_list.xlsx')
+            self.stopwords = pd.read_excel(path + '\\news\\task_module\\nlp_data\\crawling_stopwords.xlsx')
         self.naver_total_page = 'https://search.naver.com/search.naver?&where=news&query={}&start=1&sort=1{}'
         self.naver_search_url = 'https://search.naver.com/search.naver?&where=news&query={}&start={}&sort=1{}'
         self.end_date = date.today() - timedelta(1)
@@ -22,8 +31,8 @@ class NaverNewsCrawler:
         self.start_date = date.today() + timedelta(weeks=-1)
         self.start_date = self.start_date.strftime("%Y.%m.%d")
         self.naver_date = '&pd=3&ds=' + self.start_date+'&de=' + self.end_date
-        self.company_list = pd.read_excel(path + '/nlp_data/company_list.xlsx')
-        self.stopwords = pd.read_excel(path + '/nlp_data/crawling_stopwords.xlsx')
+
+
         print("news crawler start!")
 
     def get_total_page(self, search_keyword,period,search_type):
