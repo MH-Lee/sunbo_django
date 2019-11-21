@@ -78,7 +78,7 @@
       <div>
         {% if request.user.is_authenticated %}
         {% if request.user.is_superuser %}
-          <button type="submit" class="btn btn-primary" onclick="location.href='/admin'">관리자 페이지</button>
+          <button type="submit" class="btn btn-signup" onclick="location.href='/admin'">관리자 페이지</button>&nbsp;&nbsp;
         {% else %}
         {% endif %}
         <a class="btn btn-primary" href="/accounts/logout">로그아웃</a>
