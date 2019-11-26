@@ -31,8 +31,6 @@ class NaverNewsCrawler:
         self.start_date = date.today() + timedelta(weeks=-1)
         self.start_date = self.start_date.strftime("%Y.%m.%d")
         self.naver_date = '&pd=3&ds=' + self.start_date+'&de=' + self.end_date
-
-
         print("news crawler start!")
 
     def get_total_page(self, search_keyword,period,search_type):
